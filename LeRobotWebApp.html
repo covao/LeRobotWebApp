@@ -1,0 +1,2110 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0d1725">
+  <title>🤖 LeRobotWebApp 0.21.0 · SO-ARM101 USB Control</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='87'%3E%F0%9F%A4%96%3C/text%3E%3C/svg%3E">
+  <style>
+:root{color-scheme:dark;--bg:#0b1420;--surface:#111e2c;--panel:#142231;--panel2:#192a3c;--border:#2a394a;--muted:#8da2b5;--light:#e6f0f7;--white:#fff;--teal:#35d4c2;--teal2:#1f9b92;--yellow:#f2c56d;--danger:#ed6476;font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;font-synthesis:none}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--light);font-size:13px}button,input,select{font:inherit}button{cursor:pointer}button:disabled{opacity:.38;cursor:not-allowed}a{color:inherit}input,select{color:var(--light);background:#101c2a;border:1px solid #354659;outline:0;border-radius:7px;padding:10px 11px;min-width:0}input:focus,select:focus{border-color:var(--teal)}input[type=checkbox]{accent-color:var(--teal);min-width:auto}.topbar{height:67px;background:#101c29;border-bottom:1px solid #283849}.header-scroll{height:100%;display:flex;align-items:center;gap:18px;padding:0 20px;overflow:auto;scrollbar-width:none;white-space:nowrap}.header-scroll::-webkit-scrollbar{display:none}.top-hamburger{display:none}.icon-btn{border:1px solid transparent;background:transparent;color:#c5d9e5;font-size:21px;padding:6px 10px;border-radius:7px}.icon-btn:hover{background:#22364a}.brand{display:flex;align-items:center;gap:12px;text-decoration:none}.brand-emoji{font-size:27px}.brand strong{display:block;font-weight:800;font-size:17px;letter-spacing:.11em;line-height:20px}.brand small{display:block;color:#91aaba;letter-spacing:.21em;font-size:9px;line-height:12px}.header-version{font-size:11px;font-weight:750;color:#6de3d2;font-variant-numeric:tabular-nums;white-space:nowrap}.header-divider{height:28px;width:1px;background:#334355}.header-caption{font-weight:700;font-size:11px;letter-spacing:.13em;color:#a9bed0}.header-caption span{color:#4b667b}.header-chip{font-size:10px;font-weight:750;letter-spacing:.1em;border:1px solid #395264;border-radius:5px;padding:8px 10px;color:#a0b9c9}.header-chip.status-connected{border-color:#1a8b80;color:#4ee3c8;background:#0f3939}.header-chip.status-disconnected{color:#a0b3c1}.header-chip i{display:inline-block;width:7px;height:7px;border-radius:100%;background:#637686;margin-right:6px}.header-chip.status-connected i{background:#44e0c1;box-shadow:0 0 10px #44e0c1}.header-spacer{flex:1}.shell{display:flex;height:calc(100dvh - 67px);min-height:680px}.sidebar{width:269px;flex:none;border-right:1px solid var(--border);background:#101d2b;overflow:auto;display:flex;flex-direction:column}.side-pad{padding:24px 17px 16px}.kicker{font-size:10px;letter-spacing:.17em;color:var(--teal);font-weight:800}.section-heading{display:flex;align-items:center;gap:9px;margin:13px 0 20px;font-weight:800;font-size:16px}.section-symbol{font-size:17px;color:var(--teal)}.control-label,.small-title{color:#90a7bb;letter-spacing:.12em;text-transform:uppercase;font-size:10px;font-weight:800;margin-bottom:9px}.connection-fields{padding:18px 0 10px}.field-row{display:block;margin-bottom:12px;color:#9fb4c6;font-size:11px;font-weight:700}.field-row>span{display:block;margin-bottom:7px}.field-row select,.field-row input{display:block;width:100%;font-weight:650;font-size:12px}.side-note{font-size:11px;color:#a1b5c4;line-height:1.75;margin:8px 0 13px}.side-note.warning{color:#f1cb91;background:#392e22;border:1px solid #625039;border-radius:8px;padding:10px}.side-note.subtle{font-size:10px;color:#7f95a8}.primary-btn,.secondary-btn,.danger-btn{min-height:36px;padding:9px 13px;border-radius:7px;font-weight:750;font-size:12px;border:1px solid transparent;transition:background .15s}.primary-btn{background:#2ec7b8;color:#072a30}.primary-btn:hover:not(:disabled){background:#5ce4d4}.secondary-btn{background:#223346;color:#c7dbe9;border-color:#35485e}.secondary-btn:hover:not(:disabled){background:#2c455d}.danger-btn{background:#3d2736;color:#ff9bab;border-color:#8c3f53}.danger-btn:hover:not(:disabled){background:#593047}.block{display:block;width:100%;margin-top:9px}.margin-top{margin-top:28px}.servo-status{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}.servo-pill{background:#192a38;border:1px solid #304359;border-radius:6px;padding:9px 3px;text-align:center;color:#8095a6;font-size:10px}.servo-pill strong{display:block;font-size:12px;color:#b5c9d8;margin-bottom:3px}.servo-pill.online{border-color:#267c76;background:#153331;color:#60ddc4}.servo-pill.error{border-color:#714352;background:#35212b;color:#ef9ead}.log-panel{margin-top:19px;border-top:1px solid #2a4051;padding-top:14px}.log-panel-header{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:9px}.log-panel-header label{font-size:11px;font-weight:800;letter-spacing:.055em;color:#b6d2df}.log-panel-header .secondary-btn{font-size:10px;min-height:30px;padding:6px 12px}.log-panel textarea{display:block;width:100%;height:240px;min-height:120px;max-height:520px;resize:vertical;overflow:auto;white-space:pre-wrap;overflow-wrap:anywhere;word-break:break-word;tab-size:2;background:#091722;color:#c2e4ee;border:1px solid #3a586a;border-radius:8px;padding:10px;font:11px/1.55 ui-monospace,SFMono-Regular,Consolas,monospace;cursor:text}.log-panel textarea:focus{border-color:#49baac}.log-copy-status{display:block;min-height:15px;font-size:10px;color:#75e1d2;margin-top:5px}.sidebar-footer{border-top:1px solid #283947;margin-top:auto;padding:17px;color:#678398;font-size:9px;letter-spacing:.09em;display:flex;justify-content:space-between}.workspace{min-width:0;flex:1;display:grid;grid-template-columns:minmax(430px,1fr) 342px;overflow:auto}.scene-pane{min-width:0;padding:27px 27px 36px;border-right:1px solid var(--border)}.joint-pane{min-width:0;background:#101d2b;overflow:auto;padding:27px 19px}.pane-top{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:20px}.pane-top h1,.pane-top h2{font-size:22px;line-height:1.18;margin:7px 0 0;font-weight:750;letter-spacing:-.025em}.pane-top h2{font-size:19px}.pane-top.small h2{font-size:18px}.scene-tag,.cal-badge,.joint-count{color:#96b0c0;font-size:10px;letter-spacing:.07em;border:1px solid #334658;padding:7px;border-radius:5px;white-space:nowrap}.canvas-wrap{position:relative;width:100%;height:clamp(310px,42vw,560px);border:1px solid #2a4357;border-radius:12px;overflow:hidden;background:#0d1826}.canvas-wrap canvas{display:block;width:100%;height:100%;touch-action:none;cursor:grab}.canvas-wrap canvas:active{cursor:grabbing}.canvas-overlays{position:absolute;top:14px;display:flex;flex-direction:column;gap:8px;pointer-events:none}.canvas-overlays.left{left:14px}.canvas-overlays.right{right:14px;pointer-events:auto}.overlay-label{background:rgba(13,26,39,.78);border:1px solid #354f5d;border-radius:5px;font-size:10px;color:#7898aa;padding:8px 10px;letter-spacing:.04em}.overlay-label strong{color:#e9f5f9;margin-left:8px;font-weight:800}.canvas-tool{width:29px;height:29px;border:1px solid #3b5567;border-radius:6px;background:#152839c9;color:#d9e9f4;font-size:19px}.scene-footer{display:flex;justify-content:space-between;gap:12px;margin:10px 0 26px;color:#7993a7;font-size:10px;flex-wrap:wrap}.calibration-section{background:#111f2e;border:1px solid #304251;border-radius:10px;padding:21px}.calibration-section .pane-top{margin-bottom:14px}.calibration-toolbar{display:flex;gap:7px;flex-wrap:wrap}.calibration-toolbar .secondary-btn{font-size:11px}.help-line{font-size:11px;line-height:1.8;color:#849db0;margin:12px 0 20px}.cal-form{background:#152737;border:1px solid #2c4555;border-radius:9px;padding:15px}.cal-joint{display:flex;align-items:center;justify-content:space-between;gap:13px;color:#9cb6c7;font-size:11px;font-weight:750}.cal-joint select{flex:1;max-width:250px}.cal-live{margin-top:17px;color:#8ba4b6;font-size:11px}.cal-live strong{color:#f0d18b;font-family:ui-monospace,monospace;font-size:17px;margin-left:8px}.cal-live small{color:#7f9bad;font-size:10px}.cal-values{display:grid;grid-template-columns:repeat(3,minmax(0,1fr)) 76px;gap:9px;margin:15px 0}.cal-values>label{min-width:0}.cal-values>label>span:first-child{color:#91aebf;font-weight:800;font-size:10px;display:flex;align-items:center;justify-content:space-between;gap:2px;margin-bottom:7px}.cal-values input[type=number]{width:100%;padding:10px 6px;font-size:12px;text-align:center;font-family:ui-monospace,monospace}.take-btn{border:0;background:#294459;border-radius:3px;color:#aee8e2;font-size:9px;padding:3px 4px;cursor:pointer}.invert-label{display:flex;flex-direction:column;align-items:center;justify-content:space-between}.invert-label>span:first-child{white-space:nowrap}.invert-label>span:last-child{color:#9db4c4;font-size:10px}.cal-actions{display:flex;align-items:center;gap:12px;flex-wrap:wrap}.cal-info{color:#90a6b9;font-size:11px}.cal-info.error{color:#f4a0aa}.data-actions{display:flex;gap:18px;flex-wrap:wrap;padding:17px 3px 0}.text-btn{border:0;background:transparent;color:#5fddce;font-size:11px;text-decoration:underline;text-underline-offset:4px;padding:0}.joint-panel-note{background:#193043;padding:12px;border:1px solid #2d4c61;border-radius:9px;color:#9fb4c5;font-size:11px;line-height:1.7;margin:-4px 0 19px}.joint-panel-note strong{color:#daedf3}.joint-count{color:#4bdec8;border-color:#267e73}.joint-list{display:flex;flex-direction:column;gap:10px}.joint-card{padding:15px 14px 13px;border:1px solid #334a5b;border-radius:10px;background:#172838;transition:border-color .14s}.joint-card.active{border-color:#36c1b2;background:#19313b}.joint-card.disabled{opacity:.65}.joint-header{display:flex;align-items:center;gap:10px}.joint-index{background:#243f50;border:1px solid #4c6d81;color:#afc5d5;border-radius:6px;font-size:11px;font-weight:800;text-align:center;padding:6px;width:29px}.joint-name{flex:1;min-width:0}.joint-name strong{display:block;color:#e6f3fa;font-weight:800;font-size:13px}.joint-name small{display:block;color:#7f9eb5;font-size:10px;margin-top:3px}.joint-value{text-align:right}.joint-value strong{font-size:22px;font-weight:800;color:#63e9d1;font-variant-numeric:tabular-nums}.joint-value small{display:block;font-size:10px;color:#8cabbc;white-space:nowrap}.joint-card input[type=range]{margin:14px 0 6px;width:100%;height:5px;border-radius:5px;appearance:none;background:linear-gradient(to right,#25998e,#35dbc4);cursor:pointer;outline:0;padding:0;border:0;accent-color:var(--teal)}.joint-card input[type=range]::-webkit-slider-thumb{appearance:none;width:18px;height:18px;border-radius:50%;background:#d8fffa;border:4px solid #1bc7b8;box-shadow:0 0 0 3px #264658}.joint-card input[type=range]::-moz-range-thumb{width:12px;height:12px;border-radius:50%;background:#e7fffb;border:3px solid #1bc7b8}.joint-card input[type=range]:disabled{opacity:.3;cursor:not-allowed}.joint-metrics{display:flex;justify-content:space-between;gap:5px;color:#809eaf;font-size:10px}.joint-metrics strong{font-weight:650;color:#b8d1da}.joint-footer{padding-top:15px}.joint-footer p{font-size:10px;line-height:1.8;color:#8fa6b8}.backdrop{display:none}
+@media(min-width:1600px){.workspace{grid-template-columns:minmax(540px,1fr) 390px}.scene-pane{padding:34px}.joint-pane{padding:34px 22px}}
+@media(max-width:1200px){.workspace{grid-template-columns: minmax(0,1fr) 310px}.scene-pane{padding:20px}.joint-pane{padding:20px 13px}.sidebar{width:246px}.cal-values{grid-template-columns:repeat(3,minmax(0,1fr))}.invert-label{grid-column:1/-1;flex-direction:row;justify-content:flex-start;gap:14px}}
+@media(max-width:980px){.top-hamburger{display:block}.sidebar{position:fixed;left:0;top:67px;bottom:0;transform:translateX(-105%);transition:transform .22s;z-index:11;width:285px;box-shadow:6px 0 22px #0007}.shell.menu-open .sidebar{transform:translateX(0)}.backdrop:not([hidden]){display:block;position:fixed;inset:67px 0 0;background:#0009;z-index:10}.workspace{grid-template-columns:minmax(0,1fr) 335px}.scene-pane{padding:19px}}
+@media(max-width:710px){.header-scroll{padding:0 10px;gap:12px}.header-version{font-size:11px}.header-caption,.header-divider{display:none}.topbar{height:58px}.shell{height:auto;min-height:calc(100dvh - 58px)}.sidebar{top:58px}.backdrop:not([hidden]){inset:58px 0 0}.workspace{display:flex;flex-direction:column;overflow:visible;width:100%}.scene-pane{border-right:0;padding:18px 12px 5px}.joint-pane{padding:19px 12px 35px;overflow:visible}.canvas-wrap{height:clamp(330px,78vw,450px)}.pane-top h1{font-size:20px}.calibration-section{padding:14px}.cal-values{gap:5px}.cal-form{padding:10px}.cal-values input[type=number]{padding:10px 3px}.scene-footer{margin-bottom:18px}.joint-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}.joint-card{padding:11px 9px}.joint-header{gap:5px}.joint-name strong{font-size:11px}.joint-name small{font-size:9px}.joint-index{width:25px;padding:5px 2px}.joint-value strong{font-size:17px}.joint-metrics{font-size:9px}.joint-card input[type=range]{margin:17px 0 10px}}
+@media(max-width:400px){.joint-list{grid-template-columns:1fr}.joint-card{padding:13px}.joint-name strong{font-size:13px}.cal-values{grid-template-columns:repeat(3,minmax(0,1fr))}.take-btn{font-size:8px}.calibration-toolbar .secondary-btn{padding:7px}}
+[hidden]{display:none!important}
+
+.cal-head-actions{display:flex;align-items:center;gap:7px}#toggleCalPanelBtn{display:none}
+@media(max-width:710px){#toggleCalPanelBtn{display:inline-flex;align-items:center;padding:6px 7px;min-height:29px;font-size:10px}.calibration-section.collapsed .calibration-toolbar,.calibration-section.collapsed .help-line,.calibration-section.collapsed .cal-form,.calibration-section.collapsed .data-actions{display:none}.calibration-section .pane-top.small{margin-bottom:10px}.calibration-section.collapsed .pane-top.small{margin-bottom:0}}
+
+/* Global six-joint slider window, responsive at all viewport widths. */
+.range-panel{background:#152b3b;border:1px solid #345669;border-radius:10px;padding:13px 12px;margin:0 0 16px}
+.range-panel-head{display:flex;justify-content:space-between;align-items:center;gap:8px;color:#d5e7ef;font-size:12px;margin-bottom:12px;flex-wrap:wrap}
+.range-panel-head>span{color:#64ead0;font-variant-numeric:tabular-nums;font-weight:800;border-radius:5px;padding:4px 7px;background:#113a3e}
+.range-inputs{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:8px}
+.range-inputs label{display:block;min-width:0;font-size:10px;color:#98b5c7;font-weight:750}
+.range-inputs input{margin-top:5px;width:100%;min-width:0;text-align:center;font-size:13px;padding:7px 5px;font-variant-numeric:tabular-nums}
+.range-inputs button{min-width:0;min-height:32px;padding:7px 5px;font-size:11px}
+.range-feedback{font-size:10px;color:#91aabc;line-height:1.65;margin-top:9px}
+.range-feedback.error{color:#ffacb5}
+.joint-range-outside{font-size:9px;color:#f4c386;margin-top:5px;min-height:0;line-height:1.4}
+@media(max-width:710px){.range-panel{padding:12px}.range-panel-head{font-size:11px}}
+
+/* Leader/Follower dual monitor */
+.dual-viewers{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.dual-viewer{min-width:0}
+.dual-viewer .canvas-wrap{height:clamp(240px,26vw,390px)}
+.view-name{color:#6be4d6;font-size:12px;font-weight:800;letter-spacing:.09em;margin:0 0 7px}
+.view-name small{color:#8daabb;font-weight:500;font-size:10px;letter-spacing:0}
+.data-source{font-size:10px;color:#7da1b3;line-height:1.5}
+@media(max-width:1160px){.dual-viewers{grid-template-columns:1fr}.dual-viewer .canvas-wrap{height:340px}}
+@media(max-width:710px){.dual-viewers{grid-template-columns:1fr}.dual-viewer .canvas-wrap{height:clamp(290px,76vw,420px)}}
+
+.usb-port-field{margin:0 0 12px}.usb-port-field[hidden]{display:none}.port-description{font-size:10px;color:#8faabd;line-height:1.6;margin:5px 0 9px;overflow-wrap:anywhere}
+.cal-role-row{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin:12px 0}.cal-role-row label{font-weight:800;color:#c9dce7;font-size:12px}.cal-role-row select{min-width:115px;padding:8px}.control-mode-panel{background:#142c3b;border:1px solid #346276;border-radius:10px;padding:13px;margin-bottom:21px}.control-mode-buttons{display:grid;grid-template-columns:1fr 1fr;gap:7px}.control-mode-btn{border:1px solid #365668;border-radius:8px;padding:12px 6px;background:#1b3547;color:#a7bdcb;font-weight:800}.control-mode-btn.selected{background:#22554f;border-color:#44ccbb;color:#defef3}
+.follow-speed-panel{margin-top:14px;padding:13px;background:#102736;border:1px solid #345666;border-radius:9px}
+.follow-speed-top{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.follow-speed-top label{font-size:11px;font-weight:800;color:#d3ecf2}
+.follow-speed-top output{font-size:15px;color:#63e9d1;font-weight:800;font-variant-numeric:tabular-nums}
+.follow-speed-panel input[type=range]{width:100%;margin:13px 0 7px;accent-color:#4bd3be;cursor:pointer}
+.follow-speed-presets{display:grid;grid-template-columns:repeat(3,1fr);gap:7px}
+.follow-speed-presets button{min-height:34px;font-size:11px}
+.follow-speed-presets button.selected{background:#205951;border-color:#44cdbc;color:#e3fff9}
+ .follow-speed-hint{font-size:10px;color:#a4c0cd;line-height:1.6;margin:9px 0 0}
+.follow-diagnostics{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-top:12px}
+.follow-diagnostics>div{border:1px solid #355263;background:#10212f;border-radius:7px;padding:8px;min-width:0}
+.follow-diagnostics span{display:block;font-size:10px;color:#a7c5d5;margin-bottom:4px}
+.follow-diagnostics strong{display:block;font-size:13px;color:#d8fff3;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+.follow-diagnostics strong.warn{color:#ffd493}
+.follow-diagnostics strong.error{color:#ff9da5}
+
+.mode-description{font-size:10px;color:#9cb6c7;line-height:1.6;margin:9px 0 0}
+.port-setup{display:flex;flex-direction:column;gap:12px;margin:12px 0 10px}.port-setup-card{background:#16293a;border:1px solid #345064;border-radius:10px;padding:13px}.port-setup-header{display:flex;justify-content:space-between;align-items:center;gap:6px;margin-bottom:12px}.port-setup-header strong{color:#e3f5fa;font-weight:800;font-size:14px}.port-connection-status{color:#9ab3c2;font-size:10px}.port-connection-status.online{color:#54e5c5}.port-connection-status.failed{color:#ff9bab}.torque-panel{border-top:1px solid #304658;padding-top:15px;margin-top:18px}.torque-panel button{font-size:13px;min-height:42px}
+
+.debug-options{margin-top:12px;background:#263143;border:1px solid #7d6445;border-radius:9px;padding:12px}
+.debug-options label{display:flex;align-items:center;gap:9px;font-size:11px;font-weight:800;color:#f2dbb1;margin:8px 0}
+.debug-options small{display:block;font-size:10px;line-height:1.55;color:#c2b5a0}
+.log-tools{display:flex;gap:5px;flex-wrap:wrap;justify-content:flex-end}
+.log-panel-header{align-items:flex-start}
+.log-panel-header .secondary-btn{font-size:10px;padding:5px 8px}
+.joint-extra{font-size:10px;color:#93bed0;margin-top:6px;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+.joint-extra.warn{color:#ffca87}
+</style>
+</head>
+<body>
+  <div id="app">
+    <header class="topbar">
+      <div class="header-scroll">
+        <button class="icon-btn top-hamburger" id="menuBtn" aria-label="Toggle menu" title="Menu"><span>☰</span></button>
+        <a class="brand" href="https://github.com/covao/LeRobotWebApp" target="_blank" rel="noopener" title="Project repository"><span class="brand-emoji">🤖</span><span><strong>LeRobotWebApp</strong><small>SO-ARM101 CONTROL</small></span></a>
+        <span class="header-divider"></span><span class="header-version">0.21.0</span>
+        <div class="header-caption">LEADER + FOLLOWER <span>·</span> 6 DOF</div>
+        <div class="header-chip" id="headerMode">USB SERIAL</div>
+        <div class="header-chip status-disconnected" id="headerStatus"><i></i>Disconnected</div>
+        <div class="header-spacer"></div>
+        <button id="fullscreenBtn" class="icon-btn" aria-label="Fullscreen" title="Fullscreen">⛶</button>
+      </div>
+    </header>
+    <div id="backdrop" class="backdrop" hidden></div>
+    <div class="shell" id="shell">
+      <aside class="sidebar" id="sidebar">
+        <div class="side-pad">
+          <div class="kicker">HARDWARE INTERFACE</div>
+          <div class="section-heading"><span class="section-symbol">◈</span> USB Serial Ports</div>
+          <p class="side-note">Choose a USB port for each arm. Each arm connects automatically after selection. Chrome / Edge on localhost or HTTPS is required.</p>
+          <section class="port-setup" aria-label="Leader and Follower USB connections">
+            <div class="port-setup-card" id="followerUsbField">
+              <div class="port-setup-header"><strong>Follower</strong><span id="followerConnectStatus" class="port-connection-status">Disconnected</span></div>
+              <label class="field-row"><span>Follower Baud Rate</span><select id="baudSelect"><option>1000000</option><option>500000</option><option>250000</option><option>115200</option><option>57600</option></select></label>
+              <button id="selectFollowerPortBtn" class="primary-btn block" type="button">Choose Follower Port &amp; Connect</button>
+              <div id="followerPortLabel" class="port-description">No USB port selected</div>
+              <button id="connectBtn" class="secondary-btn block" disabled>Reconnect Follower</button>
+            </div>
+            <div class="port-setup-card" id="leaderUsbField">
+              <div class="port-setup-header"><strong>Leader</strong><span id="leaderConnectStatus" class="port-connection-status">Disconnected</span></div>
+              <label class="field-row"><span>Leader Baud Rate</span><select id="leaderBaud"><option value="1000000">1000000</option><option value="500000">500000</option><option value="250000">250000</option><option value="115200">115200</option><option value="57600">57600</option></select></label>
+              <button id="selectLeaderPortBtn" class="primary-btn block" type="button">Choose Leader Port &amp; Connect</button>
+              <div id="leaderPortLabel" class="port-description">No USB port selected</div>
+              <button id="leaderConnectBtn" class="secondary-btn block" disabled>Reconnect Leader</button>
+            </div>
+          </section>
+          <div class="side-note subtle">Browser USB pickers cannot display Windows COM numbers. Use different adapters for Leader and Follower. Selecting a port does not enable Follower torque.</div>
+          <div class="small-title margin-top">FOLLOWER SERVO STATUS</div>
+          <div id="servoStatus" class="servo-status"></div>
+          <div class="torque-panel" role="group" aria-label="Follower torque controls">
+            <button class="secondary-btn block" id="torqueBtn" disabled>Follower Torque: OFF</button>
+            <p class="side-note subtle" id="torqueHint">Torque is OFF by default. Support the arm before switching torque OFF. Mechanical collisions and sudden movement are possible; use a physical emergency stop.</p>
+          </div>
+          <section class="log-panel" aria-label="Communication log">
+            <div class="log-panel-header"><label for="logOutput">Communication Log</label><div class="log-tools"><button id="copyLogBtn" class="secondary-btn" type="button">Copy</button><button id="exportLogBtn" class="secondary-btn" type="button">Export</button><button id="clearLogBtn" class="secondary-btn" type="button">Clear</button></div></div>
+            <textarea id="logOutput" readonly spellcheck="false" wrap="soft" aria-label="Errors, warnings, and execution messages" aria-live="off"></textarea>
+            <output id="copyLogStatus" class="log-copy-status" role="status" aria-live="polite"></output>
+          </section>
+        </div>
+        <div class="sidebar-footer">LeRobotWebApp <span>0.21.0 MVP</span></div>
+      </aside>
+      <main class="workspace">
+        <section class="scene-pane">
+          <div class="pane-top"><div><div class="kicker">DIGITAL TWIN</div><h1>3D Motion Viewer</h1></div><div class="scene-tag">KINEMATICS ONLY</div></div>
+          <div class="dual-viewers">
+            <div class="dual-viewer">
+              <div class="view-name">FOLLOWER <small>Commanded Target / Joint Model</small></div>
+              <div class="canvas-wrap" id="canvasWrap">
+                <canvas id="armCanvas" aria-label="Follower 3D joint animation"></canvas>
+                <div class="canvas-overlays left"><div class="overlay-label">MODEL <strong>SO-ARM101</strong></div><div class="overlay-label">STATE <strong id="overlayState">OFFLINE</strong></div></div>
+                <div class="canvas-overlays right"><button class="canvas-tool" id="resetCameraBtn" aria-label="Reset Follower camera">↺</button><button class="canvas-tool" id="zoomInBtn" aria-label="Zoom in Follower">＋</button><button class="canvas-tool" id="zoomOutBtn" aria-label="Zoom out Follower">－</button></div>
+              </div>
+            </div>
+            <div class="dual-viewer">
+              <div class="view-name">LEADER <small>Measured Joint Pose</small></div>
+              <div class="canvas-wrap" id="leaderCanvasWrap">
+                <canvas id="leaderCanvas" aria-label="Leader 3D joint animation"></canvas>
+                <div class="canvas-overlays left"><div class="overlay-label">MODEL <strong>SO-ARM101</strong></div><div class="overlay-label">STATE <strong id="leaderOverlayState">OFFLINE</strong></div></div>
+                <div class="canvas-overlays right"><button class="canvas-tool" id="leaderResetCameraBtn" aria-label="Reset Leader camera">↺</button><button class="canvas-tool" id="leaderZoomInBtn" aria-label="Zoom in Leader">＋</button><button class="canvas-tool" id="leaderZoomOutBtn" aria-label="Zoom out Leader">－</button></div>
+              </div>
+            </div>
+          </div>
+          <div class="scene-footer"><span>3D views: drag to orbit / scroll to zoom</span><span id="modelCaption">Simplified SO-ARM101 geometry (Leader / Follower measured positions; Follower SYNC READ 80–100ms)</span></div>
+          <section class="calibration-section" id="calibrationSection">
+            <div class="pane-top small"><div><div class="kicker">SERVO SETUP</div><h2>Arm Calibration (LeRobot JSON)</h2></div><div class="cal-head-actions"><span class="cal-badge" id="calBadge">Uncalibrated</span><button class="secondary-btn" id="toggleCalPanelBtn" aria-expanded="false">Open calibration ▾</button></div></div>
+            <div class="cal-role-row"><label for="calArm">Calibrate arm</label><select id="calArm"><option value="follower">Follower</option><option value="leader">Leader</option></select><span id="calArmConnection" class="port-description">Follower calibration</span></div>
+            <div class="calibration-toolbar"><button class="secondary-btn" id="startCalBtn" disabled>1. Start Calibration</button><button class="secondary-btn" id="sampleBtn" disabled>2. Sample Range</button><button class="secondary-btn" id="stopSampleBtn" disabled>Stop Sampling</button></div>
+            <p class="help-line">Physical calibration requires torque OFF. Support the arm while manually moving joints. JSON/local settings are saved; motor EEPROM is never modified.</p>
+            <div class="cal-form">
+              <label class="cal-joint"><span>Target Servo</span><select id="calJoint"></select></label>
+              <div class="cal-live">Present Position <strong id="calLive">—</strong><small> / 4095 tick</small></div>
+              <div class="cal-values">
+                <label><span>MIN <button class="take-btn" data-capture="min" title="Capture present position as MIN">Capture</button></span><input id="calMin" type="number" min="0" max="4095" step="1" value="600"></label>
+                <label><span>CENTER (midpoint)</span><input id="calCenter" type="number" min="0" max="4095" step="1" value="2048" readonly title="Calculated from MIN/MAX for LeRobot compatibility"></label>
+                <label><span>MAX <button class="take-btn" data-capture="max" title="Capture present position as MAX">Capture</button></span><input id="calMax" type="number" min="0" max="4095" step="1" value="3500"></label>
+                <label class="invert-label"><span>Drive mode (0/1)</span><input id="calInvert" type="checkbox"><span>Reverse</span></label>
+              </div>
+              <div class="cal-values" style="grid-template-columns:repeat(2,minmax(0,1fr))">
+                <label><span>Homing Offset (servo configuration)</span><input id="calOffset" type="number" step="1" value="0"></label>
+                <div class="data-source">Preserves homing_offset in JSON. Does not write motor EEPROM. Servo-side offset is assumed to be already applied.</div>
+              </div>
+              <div class="cal-actions"><button class="primary-btn" id="applyCalBtn">Save Joint Calibration</button><span id="calInfo" class="cal-info">MIN &lt; CENTER &lt; MAX</span></div>
+            </div>
+            <div class="data-actions"><button class="text-btn" id="exportCalBtn">↓ Export Follower JSON</button><button class="text-btn" id="importCalBtn">↑ Import Follower JSON</button><input type="file" accept=".json,application/json" id="importCalFile" hidden></div>
+          </section>
+        </section>
+        <section class="joint-pane">
+          <section class="control-mode-panel" aria-labelledby="controlModeLabel">
+            <div id="controlModeLabel" class="small-title">Follower Control Mode</div>
+            <div class="control-mode-buttons" role="group" aria-label="Follower control mode">
+              <button type="button" id="controlManualBtn" class="control-mode-btn" aria-pressed="false">Manual</button>
+              <button type="button" id="controlLeaderBtn" class="control-mode-btn selected" aria-pressed="true">Leader Control</button>
+            </div>
+            <p id="controlModeInfo" class="mode-description">Leader Control is the default. On Follower torque ON, guarded alignment is authorized; after fresh Leader data arrives, alignment begins automatically and following starts when measured positions match.</p>
+            <div class="follow-speed-panel" aria-label="Follower speed setting">
+              <div class="follow-speed-top"><label for="followSpeedSlider">Follower Max Speed</label><output id="followSpeedValue" for="followSpeedSlider">400 tick/s</output></div>
+              <input type="range" id="followSpeedSlider" min="100" max="4500" step="50" value="400" aria-label="Follower maximum speed in ticks per second" aria-valuetext="400 tick/s">
+              <div class="follow-speed-presets" role="group" aria-label="Speed presets">
+                <button class="secondary-btn" id="followSpeedSlowBtn" type="button">Slow · 200</button>
+                <button class="secondary-btn selected" id="followSpeedNormalBtn" type="button">Normal · 400</button>
+                <button class="secondary-btn" id="followSpeedFastBtn" type="button">Fast · 3000</button>
+              </div>
+              <div class="follow-speed-top"><label for="followAccelSlider">Follower Max Acceleration</label><output id="followAccelValue" for="followAccelSlider">8000 tick/s²</output></div>
+              <input type="range" id="followAccelSlider" min="100" max="20000" step="100" value="8000" aria-label="Follower maximum command acceleration in ticks per second squared">
+              <div class="follow-speed-top"><label for="followJerkSlider">Follower Max Jerk</label><output id="followJerkValue" for="followJerkSlider">30000 tick/s³</output></div>
+              <input type="range" id="followJerkSlider" min="1000" max="100000" step="1000" value="30000" aria-label="Follower maximum command jerk in ticks per second cubed">
+              <div class="debug-options" aria-label="Servo motion interpolation settings">
+                <div class="small-title">STS3215 SERVO MOTION PROFILE</div>
+                <label><input type="checkbox" id="servoInterpolationCheckbox" checked> Servo interpolation (7-byte SYNC WRITE, Leader Control only)</label>
+                <small>Default ON. Switch only with Follower torque OFF. Manual targets and torque-on hold keep the legacy 2-byte position packet. Servo parameters may persist in SRAM after changing to Manual.</small>
+                <div class="follow-speed-top"><label for="servoSpeedMarginSlider">Servo Velocity Margin</label><output id="servoSpeedMarginValue" for="servoSpeedMarginSlider">1.15×</output></div>
+                <input type="range" id="servoSpeedMarginSlider" min="1" max="1.5" step="0.05" value="1.15" aria-label="Servo goal speed margin multiplier">
+                <button type="button" class="secondary-btn block" id="readServoMotionBtn" disabled>Read Servo Motion Registers (read-only)</button>
+                <small>Motion packet: ACC[41] / Goal Position[42–43] / Goal Time=0[44–45] / Goal Speed[46–47]. Goal Speed=0 means unlimited, so the minimum commanded value is 50 tick/s. Internal acceleration uses an approximate 100 tick/s² per register unit; verify with physical hardware.</small>
+              </div>
+              <div class="follow-diagnostics" aria-label="Live follower command diagnostics">
+                <div><span>Control Phase</span><strong id="followPhaseValue">IDLE</strong></div>
+                <div><span>Effective Speed Limit</span><strong id="followEffectiveSpeed">0 tick/s</strong></div>
+                <div><span>Actual Command Rate (peak)</span><strong id="followCommandRate">0 tick/s</strong></div>
+                <div><span>Accel Limit (command)</span><strong id="followAccelerationLimit">8000 tick/s²</strong></div>
+                <div><span>Jerk Limit (command)</span><strong id="followJerkLimit">30000 tick/s³</strong></div>
+                <div><span>Servo Motion TX</span><strong id="servoMotionStatus">ON · 7-byte in Leader Control</strong></div>
+                <div><span>Last Servo Speed (peak)</span><strong id="servoMotionSpeed">—</strong></div>
+                <div><span>Measured Joint Rate (peak)</span><strong id="followMeasuredRate">—</strong></div>
+                <div><span>Maximum Tracking Error</span><strong id="followTrackingError">—</strong></div>
+                <div><span>EEPROM Limits</span><strong id="followHardwareStatus">Not read</strong></div>
+              </div>
+              <p class="follow-speed-hint">FOLLOWING uses a jerk-limited PC S-curve and, when enabled, STS3215 7-byte hardware speed/acceleration commands. ALIGNING remains capped at 400 tick/s and 8 ticks per command. SYNC WRITE period: nominal 20ms, not hard real-time. No per-servo acknowledgement.</p>
+              <div class="debug-options" id="debugOptions">
+                <div class="small-title">DIAGNOSTICS / BENCH DEBUG</div>
+                <label><input id="debugModeCheckbox" type="checkbox" checked> Debug Mode (software limits warn only)</label>
+                <small>Default ON for attended bench diagnostics; software bounds only warn. Re-enabling after switching OFF requires confirmation; EEPROM bounds remain enforced. Torque is still OFF at start. A joint beyond EEPROM bounds is never automatically driven. During alignment, a stalled joint may be held while other joints continue. Keep the arm supported and use a hardware emergency stop.</small>
+                <label><input id="traceSerialCheckbox" type="checkbox"> Verbose TX / RX summary (rate-limited)</label>
+              </div>
+            </div>
+            <div id="teleopStatus" class="mode-description" role="status">Waiting for both USB connections and Follower torque ON.</div>
+          </section>
+          <div class="pane-top"><div><div class="kicker">JOINT COMMANDS</div><h2>Follower Joint Controller</h2></div><span id="calCount" class="joint-count">0 / 6</span></div>
+          <div class="joint-panel-note">Manual sliders use each joint’s calibrated MIN/CENTER/MAX only; uncalibrated joints cannot be commanded in Manual mode. Leader Control uses independent Leader/Follower LeRobot ranges. <strong>With Leader Control armed at torque ON, the Follower holds its present pose, waits for fresh Leader measurements, then aligns at bounded speed before following.</strong> In Leader Control, Follower trajectories use speed, acceleration and jerk limits at a nominal 20 ms command cycle; Manual position commands remain direct.</div>
+          <div class="joint-list" id="jointList"></div>
+          <div class="joint-footer"><button type="button" id="diagnoseGripperBtn" class="secondary-btn block" disabled>Diagnose Gripper (ID 6) · Read-only</button><button id="midpointBtn" class="secondary-btn block" disabled>Move Follower to Joint Midpoints</button><p>Displayed angles are encoder-derived relative values, not guaranteed mechanical joint angles or gripper opening.</p></div>
+        </section>
+      </main>
+    </div>
+  </div>
+  <script type="application/json" id="leaderDefaultCal">{
+    "shoulder_pan": {
+        "id": 1,
+        "drive_mode": 0,
+        "homing_offset": 1109,
+        "range_min": 758,
+        "range_max": 3466
+    },
+    "shoulder_lift": {
+        "id": 2,
+        "drive_mode": 0,
+        "homing_offset": -504,
+        "range_min": 840,
+        "range_max": 3228
+    },
+    "elbow_flex": {
+        "id": 3,
+        "drive_mode": 0,
+        "homing_offset": -238,
+        "range_min": 867,
+        "range_max": 3071
+    },
+    "wrist_flex": {
+        "id": 4,
+        "drive_mode": 0,
+        "homing_offset": 301,
+        "range_min": 841,
+        "range_max": 3163
+    },
+    "wrist_roll": {
+        "id": 5,
+        "drive_mode": 0,
+        "homing_offset": 1014,
+        "range_min": 202,
+        "range_max": 4000
+    },
+    "gripper": {
+        "id": 6,
+        "drive_mode": 0,
+        "homing_offset": -430,
+        "range_min": 1269,
+        "range_max": 2473
+    }
+}
+</script>
+  <script type="application/json" id="followerDefaultCal">{
+    "shoulder_pan": {
+        "id": 1,
+        "drive_mode": 0,
+        "homing_offset": 827,
+        "range_min": 868,
+        "range_max": 3602
+    },
+    "shoulder_lift": {
+        "id": 2,
+        "drive_mode": 0,
+        "homing_offset": 176,
+        "range_min": 794,
+        "range_max": 3179
+    },
+    "elbow_flex": {
+        "id": 3,
+        "drive_mode": 0,
+        "homing_offset": 1651,
+        "range_min": 873,
+        "range_max": 3098
+    },
+    "wrist_flex": {
+        "id": 4,
+        "drive_mode": 0,
+        "homing_offset": 1354,
+        "range_min": 738,
+        "range_max": 3111
+    },
+    "wrist_roll": {
+        "id": 5,
+        "drive_mode": 0,
+        "homing_offset": -1959,
+        "range_min": 127,
+        "range_max": 3976
+    },
+    "gripper": {
+        "id": 6,
+        "drive_mode": 0,
+        "homing_offset": 540,
+        "range_min": 1647,
+        "range_max": 3190
+    }
+}
+</script>
+  <script>
+// Feetech STS/SMS protocol 0xFF 0xFF ID LEN INST DATA CHECKSUM
+const JOINT_NAMES = [
+  ['shoulder_pan', 'Base Rotation'], ['shoulder_lift', 'Shoulder Lift'],
+  ['elbow_flex', 'Elbow Flex'], ['wrist_flex', 'Wrist Flex'],
+  ['wrist_roll', 'Wrist Roll'], ['gripper', 'Gripper']
+];
+const RESOLUTION = 4096;
+const COMMAND_MIN = -1000;
+const COMMAND_MAX = 1000;
+const MOTION_PERIOD_MS = 20; // nominal 50 Hz, best-effort in a browser
+const FOLLOWER_READ_OFF_MS = 80; // 12.5 Hz measured pose when torque is OFF
+const FOLLOWER_READ_ON_MS = 100; // 10 Hz measured pose while commanding motion
+const CALIBRATION_READ_PERIOD_MS = 100;
+const FOLLOWER_SYNC_TIMEOUT_MS = 125;
+const ALIGN_MAX_STEP_TICKS = 8; // hard safety bound per alignment command pass
+const FOLLOW_SPEED_MIN = 100;
+const FOLLOW_SPEED_MAX = 4500;
+const FOLLOW_SPEED_STEP = 50;
+const FOLLOW_SPEED_DEFAULT = 400;
+const ALIGN_SAFE_MAX_SPEED = 400; // alignment never exceeds 400 tick/s even if follow slider is faster
+const FOLLOW_SPEED_STORAGE_KEY = 'lerobotwebapp.follower.speed.v1';
+const FOLLOW_ACCEL_MIN = 100;
+const FOLLOW_ACCEL_MAX = 20000;
+const FOLLOW_ACCEL_STEP = 100;
+const FOLLOW_ACCEL_DEFAULT = 8000;
+const ALIGN_SAFE_MAX_ACCEL = 4000;
+const FOLLOW_ACCEL_STORAGE_KEY = 'lerobotwebapp.follower.acceleration.v1';
+const FOLLOW_JERK_MIN = 1000;
+const FOLLOW_JERK_MAX = 100000;
+const FOLLOW_JERK_STEP = 1000;
+const FOLLOW_JERK_DEFAULT = 30000;
+const FOLLOW_JERK_STORAGE_KEY = 'lerobotwebapp.follower.jerk.v1';
+const ALIGN_SAFE_MAX_JERK = 15000;
+// Feetech STS3215 SMS_STS SyncWritePosEx: 41=ACC(1), 42=Goal(2),
+// 44=Goal_Time(2), 46=Goal_Speed(2); the 7-byte data area is contiguous.
+const SERVO_MOTION_START=41;
+const SERVO_MOTION_BYTES=7;
+const SERVO_GOAL_SPEED_MIN=50; // 0 means unlimited on STS position mode: never send 0
+const SERVO_GOAL_SPEED_MAX=4095; // positive speed register range, tick/s
+const SERVO_ACC_UNIT_TICKS_PER_SEC2=100; // SDK/STS conversion, verify on real servo
+const SERVO_ACC_MAX=254;
+const SERVO_SPEED_MARGIN_DEFAULT=1.15;
+const SERVO_SPEED_MARGIN_MIN=1.00;
+const SERVO_SPEED_MARGIN_MAX=1.50;
+const SERVO_SPEED_MARGIN_STEP=.05;
+const SERVO_INTERPOLATION_KEY='lerobotwebapp.follower.servo_interpolation.v1';
+const SERVO_SPEED_MARGIN_KEY='lerobotwebapp.follower.servo_speed_margin.v1';
+function normalizeServoSpeedMargin(value){
+  if(value===null||value===undefined||value==='')return SERVO_SPEED_MARGIN_DEFAULT;
+  const n=Number(value);
+  if(!Number.isFinite(n))return SERVO_SPEED_MARGIN_DEFAULT;
+  return Number((Math.round(clamp(n,SERVO_SPEED_MARGIN_MIN,SERVO_SPEED_MARGIN_MAX)/SERVO_SPEED_MARGIN_STEP)*SERVO_SPEED_MARGIN_STEP).toFixed(2));
+}
+function servoSpeedRegister(velocity,margin=SERVO_SPEED_MARGIN_DEFAULT){
+  if(!Number.isFinite(velocity)||!Number.isFinite(margin)||margin<1)throw Error('Invalid servo speed inputs');
+  return Math.round(clamp(Math.ceil(Math.abs(velocity)*margin),SERVO_GOAL_SPEED_MIN,SERVO_GOAL_SPEED_MAX));
+}
+function servoAccelerationRegister(accelerationTicksPerS2){
+  if(!Number.isFinite(accelerationTicksPerS2)||accelerationTicksPerS2<=0)throw Error('Invalid servo acceleration');
+  return Math.round(clamp(Math.ceil(accelerationTicksPerS2/SERVO_ACC_UNIT_TICKS_PER_SEC2),1,SERVO_ACC_MAX));
+}
+function servoMotionCommands(goals,profiles,accelerationTicksPerS2,margin=SERVO_SPEED_MARGIN_DEFAULT){
+  if(!Array.isArray(goals)||goals.length!==6||!Array.isArray(profiles)||profiles.length!==6)
+    throw Error('Servo motion commands require 6 joints');
+  const acceleration=servoAccelerationRegister(accelerationTicksPerS2);
+  return goals.map((position,i)=>({position,
+    speed:servoSpeedRegister(profiles[i]?.velocity??0,margin), acceleration}));
+}
+
+const ALIGN_CONFIRM_THRESHOLD_TICKS = 150;
+const ALIGN_COMPLETE_TICKS = 20;
+const ALIGN_MAX_TRACKING_ERROR_TICKS = 60; // do not run far ahead of measured hardware
+const ALIGN_MAX_INITIAL_DELTA_TICKS = 1000; // no auto-alignment beyond this absolute starting difference
+const clamp = (x, a, b) => Math.min(b, Math.max(a, x));
+// Signed servo command: -1000 = MIN, 0 = CENTER, +1000 = MAX.
+// The two halves have independent scaling so the calibrated CENTER is exact.
+function commandToRaw(command, calibration) {
+  const u = clamp(Number(command), COMMAND_MIN, COMMAND_MAX);
+  const raw = u >= 0
+    ? calibration.center + u * (calibration.max - calibration.center) / COMMAND_MAX
+    : calibration.center + u * (calibration.center - calibration.min) / COMMAND_MAX;
+  return clamp(Math.round(raw), 0, 4095);
+}
+function rawToCommand(raw, calibration) {
+  const x = clamp(Number(raw), 0, 4095);
+  const span = x >= calibration.center ? calibration.max-calibration.center : calibration.center-calibration.min;
+  return clamp((x - calibration.center) / span * COMMAND_MAX, COMMAND_MIN, COMMAND_MAX);
+}
+const rawToDeg = (raw, calibration) => (raw - calibration.center) * 360 / RESOLUTION * (calibration.invert ? -1 : 1);
+const validCalibration = c => c && Number.isInteger(c.min) && Number.isInteger(c.center) && Number.isInteger(c.max) && c.min >= 0 && c.max <= 4095 && c.min + 24 <= c.center && c.center + 24 <= c.max;
+const defaultCal = () => ({min: 0, center: 2048, max: 4095, invert:false, valid:false});
+// There is NO temporary travel window for uncalibrated servos. Full encoder range
+// is a protocol bound only, NOT a collision-safe mechanical joint bound.
+const uncalibratedRange = Object.freeze({min:0, center:2048, max:4095, invert:false, valid:false, uncalibrated:true});
+const formatCommand = v => `${v>0?'+':''}${v}`;
+const makePacket = (id, instruction, params=[]) => {
+  if (id < 1 || id > 254 || !Number.isInteger(id) || params.some(v => v < 0 || v > 255 || !Number.isInteger(v))) throw Error('Invalid packet');
+  const len = params.length + 2;
+  const checksum = (~(id + len + instruction + params.reduce((a,b)=>a+b,0))) & 255;
+  return Uint8Array.from([255,255,id,len,instruction,...params,checksum]);
+};
+const decodePackets = (buffer) => {
+  const packets = [];
+  let i = 0;
+  while (i < buffer.length) {
+    if (buffer[i]===255 && i+1>=buffer.length) break;
+    if (buffer[i] !== 255 || buffer[i+1] !== 255) { i++; continue; }
+    if (buffer.length-i < 4) break;
+    const length = buffer[i+3];
+    if (length < 2 || length > 128) { i++; continue; }
+    const n = length+4;
+    if (buffer.length-i < n) break;
+    const bytes = buffer.slice(i,i+n);
+    let sum = 0;
+    for (let j=2;j<bytes.length;j++) sum = (sum+bytes[j])&255;
+    if (sum===255) packets.push({id:bytes[2], error:bytes[4], params:bytes.slice(5,-1)});
+    i += n;
+  }
+  return {packets, rest:buffer.slice(i)};
+};
+
+class WebSerialBus {
+  constructor(){ this.port=null; this.reader=null; this.writer=null; this.pending=null; this.buffer=[]; this.chain=Promise.resolve(); this.alive=false; }
+  async connect(baud,port=null) {
+    if (!('serial' in navigator)) throw Error('Web Serial is unavailable. Use Chrome or Edge on localhost/HTTPS.');
+    this.port = port || await navigator.serial.requestPort();
+    await this.port.open({baudRate:baud});
+    this.writer=this.port.writable.getWriter(); this.reader=this.port.readable.getReader(); this.alive=true;
+    this.readLoop();
+  }
+  async readLoop() {
+    try {
+      while(this.alive){
+        const {value,done}=await this.reader.read();
+        if(done) break;
+        this.buffer.push(...value);
+        const result=decodePackets(this.buffer);
+        this.buffer=result.rest;
+        for(const packet of result.packets){
+          const p=this.pending;
+          // Echo and zero-byte write acknowledgments are not read replies.
+          if(!p)continue;
+          if(p.kind==='group'){
+            if(p.expected.has(packet.id) && packet.error===0 && packet.params.length===p.size){
+              p.received.set(packet.id,packet);
+              if(p.received.size===p.expected.size){
+                this.pending=null;clearTimeout(p.timer);p.resolve(p.received);
+              }
+            }
+          }else if(p.id===packet.id && packet.error===0 && packet.params.length===p.size){
+            this.pending=null;clearTimeout(p.timer);p.resolve(packet);
+          }
+        }
+        if(this.buffer.length>1024) this.buffer=this.buffer.slice(-256);
+      }
+    } catch(e) { if(this.pending){ const p=this.pending;this.pending=null;clearTimeout(p.timer);p.reject(e); } }
+    this.alive=false;
+  }
+  request(id,instruction,params=[],size=null,timeoutMs=350){
+    const next=this.chain.catch(()=>{}).then(async()=>{
+      if(!this.alive) throw Error('Serial port not connected');
+      if(size===null){ await this.writer.write(makePacket(id,instruction,params)); return []; }
+      // Register the pending reply before transmitting the packet.
+      const reply = new Promise((resolve,reject)=>{
+        const timer=setTimeout(()=>{if(this.pending?.timer===timer){this.pending=null;reject(Error('Motor ID '+id+' response timeout'));}},timeoutMs);
+        this.pending={id,size,timer,resolve,reject};
+      });
+      try {await this.writer.write(makePacket(id,instruction,params));} catch(e){const p=this.pending;this.pending=null;if(p)clearTimeout(p.timer);throw e;}
+      const result=await reply;
+      if(result.error) throw Error('Servo ID '+id+' error: '+result.error);
+      return result.params;
+    });
+    this.chain=next; return next;
+  }
+  // One broadcast request (0x82), six status packets. Responses may arrive
+  // in several USB chunks or out of order; all six IDs must respond.
+  syncRead(ids,address,size,timeoutMs=250,allowPartial=false){
+    const unique=[...new Set(ids)];
+    if(!unique.length||unique.length!==ids.length||unique.some(id=>!Number.isInteger(id)||id<1||id>253))
+      return Promise.reject(Error('Invalid SYNC READ IDs'));
+    const next=this.chain.catch(()=>{}).then(async()=>{
+      if(!this.alive)throw Error('Serial port not connected');
+      const reply=new Promise((resolve,reject)=>{
+        const timer=setTimeout(()=>{
+          const p=this.pending;
+          if(p?.timer!==timer)return;
+          this.pending=null;
+          const missing=unique.filter(id=>!p.received.has(id));
+          if(allowPartial)p.resolve(p.received);
+          else reject(Error('SYNC READ timeout; no response from motor ID(s): '+missing.join(', ')));
+        },timeoutMs);
+        this.pending={kind:'group',expected:new Set(unique),received:new Map(),size,timer,resolve,reject};
+      });
+      try{await this.writer.write(makePacket(254,0x82,[address,size,...unique]));}
+      catch(e){const p=this.pending;this.pending=null;if(p)clearTimeout(p.timer);throw e;}
+      const frames=await reply;
+      return allowPartial?frames:unique.map(id=>frames.get(id));
+    });
+    this.chain=next;
+    return next;
+  }
+  syncWrite(positions) {
+    if(!Array.isArray(positions)||positions.length!==6 || positions.some(v=>!Number.isInteger(v)||v<0||v>4095))
+      return Promise.reject(Error('SYNC WRITE requires six valid motor positions'));
+    const params=[42,2]; // STS3215 Goal_Position, 2 bytes per motor
+    for(let i=0;i<6;i++){const v=positions[i];params.push(i+1,v&255,(v>>8)&255);}
+    // Broadcast packet has no status replies. The motor may reject a write
+    // without the browser being informed; monitoring is independent.
+    return this.request(254,0x83,params);
+  }
+  // The official Feetech SMS_STS SDK SyncWritePosEx layout (7 bytes/ID).
+  // The 0x83 broadcast has NO motor acknowledgement; read registers separately.
+  syncWriteMotion(commands){
+    if(!Array.isArray(commands)||commands.length!==6 || commands.some(c=>
+       !c||!Number.isInteger(c.position)||c.position<0||c.position>4095||
+       !Number.isInteger(c.acceleration)||c.acceleration<1||c.acceleration>SERVO_ACC_MAX||
+       !Number.isInteger(c.speed)||c.speed<1||c.speed>SERVO_GOAL_SPEED_MAX))
+      return Promise.reject(Error('7-byte SYNC WRITE requires six valid position/speed/acceleration commands'));
+    const params=[SERVO_MOTION_START,SERVO_MOTION_BYTES];
+    for(let i=0;i<6;i++){
+      const c=commands[i];
+      params.push(i+1,c.acceleration,c.position&255,(c.position>>8)&255,
+        0,0,c.speed&255,(c.speed>>8)&255); // Goal_Time=0 (speed mode)
+    }
+    return this.request(254,0x83,params);
+  }
+  async close(){
+    this.alive=false;
+    if(this.pending){const p=this.pending;this.pending=null;clearTimeout(p.timer);p.reject(Error('Disconnected'));}
+    try {await this.reader?.cancel();}catch{}
+    try{this.reader?.releaseLock();}catch{}
+    try{this.writer?.releaseLock();}catch{}
+    try{await this.port?.close();}catch{}
+    this.port=null;
+  }
+}
+
+class ServoBus {
+  constructor(transport){this.transport=transport;}
+  async readRegister(id,address,size=1){
+    if(![1,2].includes(size))throw Error('Unsupported register size');
+    const d=await this.transport.request(id,2,[address,size],size);
+    return d[0]+(size===2?(d[1]<<8):0);
+  }
+  async readPosition(id,timeoutMs=350){
+    const d=await this.transport.request(id,2,[56,2],2,timeoutMs);
+    return d[0]+(d[1]<<8);
+  }
+  async torque(id,enabled){await this.transport.request(id,3,[40,enabled?1:0]);}
+  async setTarget(id,raw){let v=clamp(Math.round(raw),0,4095);await this.transport.request(id,3,[42,v&255,(v>>8)&255]);}
+  async torqueAll(enabled){for(let id=1;id<=6;id++) await this.torque(id,enabled);}
+  async setTargetsSync(positions,motionCommands=null){
+    if(motionCommands){
+      if(motionCommands.some((c,i)=>c.position!==positions[i]))throw Error('Servo motion positions mismatch');
+      await this.transport.syncWriteMotion(motionCommands);
+    }else await this.transport.syncWrite(positions);
+  }
+  async readPositionsSync(timeoutMs=250,onDiagnostic=null){
+    const ids=[1,2,3,4,5,6];
+    const group=await this.transport.syncRead(ids,56,2,timeoutMs,true);
+    // Production returns a Map for partial responses; older test doubles
+    // return a complete array of packets.
+    const responses=group instanceof Map ? new Map(group) : new Map(group.map((packet,i)=>[i+1,packet]));
+    const missing=ids.filter(id=>!responses.has(id));
+    if(missing.length && onDiagnostic)onDiagnostic({type:'partial',missing:[...missing],received:responses.size});
+    const recovered=[],failed=[];
+    for(const id of missing){
+      let ok=false;
+      for(let attempt=1;attempt<=2;attempt++){
+        try{
+          const params=await this.transport.request(id,2,[56,2],2,65);
+          if(params.length!==2)throw Error('Invalid length');
+          responses.set(id,{id,error:0,params});
+          recovered.push(id);
+          if(onDiagnostic)onDiagnostic({type:'retry_ok',id,attempt});
+          ok=true;break;
+        }catch(error){
+          if(onDiagnostic)onDiagnostic({type:'retry_error',id,attempt,error:error.message});
+        }
+      }
+      if(!ok)failed.push(id);
+    }
+    const values=ids.map(id=>{
+      const packet=responses.get(id);
+      if(!packet||packet.error||packet.params.length!==2)return null;
+      const raw=packet.params[0]+(packet.params[1]<<8);
+      return raw>=0&&raw<=4095 ? raw : null;
+    });
+    const invalid=ids.filter((id,i)=>values[i]===null);
+    if(invalid.length){
+      const error=Error('SYNC READ partial retry exhausted; missing/invalid motor IDs: '+invalid.join(', '));
+      error.partialPositions=values;error.missingIds=invalid;
+      throw error;
+    }
+    return values;
+  }
+
+  async scan(){const results=[];for(let id=1;id<=6;id++) {try{results.push(await this.readPosition(id));}catch{results.push(null);}}return results;}
+}
+
+// Lightweight self-contained perspective 3D renderer. Link/joint transforms use
+// SO-101 new-calibration URDF joint origins; rendered casings are simplified.
+// No WebGL or CDN dependency: works offline including mobile Safari.
+
+const PI=Math.PI;
+const vec=(x=0,y=0,z=0)=>[x,y,z];
+const add=(a,b)=>[a[0]+b[0],a[1]+b[1],a[2]+b[2]];
+const sub=(a,b)=>[a[0]-b[0],a[1]-b[1],a[2]-b[2]];
+const mul=(a,s)=>a.map(v=>v*s);
+const len=a=>Math.hypot(...a);
+const cross=(a,b)=>[a[1]*b[2]-a[2]*b[1],a[2]*b[0]-a[0]*b[2],a[0]*b[1]-a[1]*b[0]];
+const norm=a=>mul(a,1/(len(a)||1));
+const matI=()=>[1,0,0,0,1,0,0,0,1,0,0,0]; // 3x3 basis (row-major) + translation
+function compose(a,b){
+  const r=new Array(12);
+  for(let i=0;i<3;i++)for(let j=0;j<3;j++)r[i*3+j]=a[i*3]*b[j]+a[i*3+1]*b[3+j]+a[i*3+2]*b[6+j];
+  for(let i=0;i<3;i++)r[9+i]=a[i*3]*b[9]+a[i*3+1]*b[10]+a[i*3+2]*b[11]+a[9+i];
+  return r;
+}
+function trans(x,y,z){return [1,0,0,0,1,0,0,0,1,x,y,z];}
+function rotX(v){let c=Math.cos(v),s=Math.sin(v);return [1,0,0,0,c,-s,0,s,c,0,0,0];}
+function rotY(v){let c=Math.cos(v),s=Math.sin(v);return [c,0,s,0,1,0,-s,0,c,0,0,0];}
+function rotZ(v){let c=Math.cos(v),s=Math.sin(v);return [c,-s,0,s,c,0,0,0,1,0,0,0];}
+const pose=(xyz,rpy)=>compose(compose(compose(trans(...xyz),rotZ(rpy[2])),rotY(rpy[1])),rotX(rpy[0]));
+const point=(m,p)=>[m[0]*p[0]+m[1]*p[1]+m[2]*p[2]+m[9],m[3]*p[0]+m[4]*p[1]+m[5]*p[2]+m[10],m[6]*p[0]+m[7]*p[1]+m[8]*p[2]+m[11]];
+const JOINTS=[
+  {origin:[.0388353,0,.0624],rpy:[PI,0,-PI]},
+  {origin:[-.0303992,-.0182778,-.0542],rpy:[-PI/2,-PI/2,0]},
+  {origin:[-.11257,-.028,0],rpy:[0,0,PI/2]},
+  {origin:[-.1349,.0052,0],rpy:[0,0,-PI/2]},
+  {origin:[0,-.0611,.0181],rpy:[PI/2,.0486795,PI]},
+  {origin:[.0202,.0188,-.0234],rpy:[PI/2,0,0]}
+];
+// SO-101 follower URDF: wrist_flex -> wrist_link -> wrist_roll ->
+// gripper_link -> gripper -> moving_jaw_link. All points are metres.
+// The geometric jaw primitives are simplified; pivot transforms and the tool
+// point are sourced from SO-101 new-calibration URDF. The two jaw tips at
+// gripper angle 0 flank gripper_frame_joint (x=-7.9mm, z=-98.1274mm).
+const GRIPPER_FRAME_TIP=[-.0079,-.000218121,-.0981274];
+const GRIPPER_FIXED_JAW_ROOT=[-.0248,-.000218121,-.058];
+const GRIPPER_FIXED_JAW_TIP=[-.0248,-.000218121,-.0981274];
+// Moving jaw is in moving_jaw_link coordinates, not gripper_link coordinates:
+// joint-6 has xyz=[.0202,.0188,-.0234], rpy=[pi/2,0,0].
+const GRIPPER_MOVING_JAW_ROOT=[-.011,-.035,.019018121];
+const GRIPPER_MOVING_JAW_TIP=[-.011,-.0747274,.019018121];
+function armJointFrames(jointAngles){
+  const M=[matI()];
+  for(let i=0;i<6;i++)M[i+1]=compose(compose(M[i],pose(JOINTS[i].origin,JOINTS[i].rpy)),rotZ(jointAngles[i]));
+  return M;
+}
+function gripperVisualEndpoints(jointAngles){
+  const M=armJointFrames(jointAngles);
+  return {
+    wristFlex:point(M[4],[0,0,0]),wristRoll:point(M[5],[0,0,0]),
+    gripperJoint:point(M[6],[0,0,0]),
+    fixedRoot:point(M[5],GRIPPER_FIXED_JAW_ROOT),fixedTip:point(M[5],GRIPPER_FIXED_JAW_TIP),
+    movingRoot:point(M[6],GRIPPER_MOVING_JAW_ROOT),movingTip:point(M[6],GRIPPER_MOVING_JAW_TIP),
+    mount:point(M[5],JOINTS[5].origin),tipFrame:point(M[5],GRIPPER_FRAME_TIP)
+  };
+}
+const C={printed:'#eebc47',printedLight:'#ffdb72',printedDark:'#b77b2d',servo:'#273747',servoLight:'#50657a',dark:'#101b2b',bolt:'#95b8cb',highlight:'#4bdad0',grip:'#db9d34'};
+function rgb(hex){return [1,3,5].map(i=>parseInt(hex.slice(i,i+2),16));}
+function shade(hex,t){const c=rgb(hex).map(v=>clamp(Math.round(v*t),0,255));return `rgb(${c.join(',')})`;}
+
+class ArmViewer {
+  constructor(canvas){
+    this.canvas=canvas;this.ctx=canvas.getContext('2d',{alpha:false});
+    this.angles=[0,0,0,0,0,0];this.actual=[0,0,0,0,0,0];this.az=-.65;this.el=.37;
+    this.distance=window.innerWidth<600?.67:.85;this.center=[.06,.10,.09];this.highlight=-1;this.drag=null;
+    this.grid=true;this.last=0;this.smoothing=.42;this.frame=this.frame.bind(this);
+    canvas.addEventListener('pointerdown',e=>{this.drag={x:e.clientX,y:e.clientY,az:this.az,el:this.el};canvas.setPointerCapture(e.pointerId);});
+    canvas.addEventListener('pointermove',e=>{if(!this.drag)return;this.az=this.drag.az+(e.clientX-this.drag.x)*.009;this.el=clamp(this.drag.el+(e.clientY-this.drag.y)*.008,-.20,1.33);});
+    canvas.addEventListener('pointerup',()=>this.drag=null);
+    canvas.addEventListener('pointercancel',()=>this.drag=null);
+    canvas.addEventListener('wheel',e=>{e.preventDefault();this.distance=clamp(this.distance*Math.exp(e.deltaY*.001),.28,1.6);},{passive:false});
+    const resize=()=>{const dpr=Math.min(devicePixelRatio||1,2);let w=canvas.clientWidth,h=canvas.clientHeight;if(w<1||h<1)return;canvas.width=Math.floor(w*dpr);canvas.height=Math.floor(h*dpr);};
+    this.resizeObserver=new ResizeObserver(resize);this.resizeObserver.observe(canvas);resize();requestAnimationFrame(this.frame);
+  }
+  setPose(raw,cal){this.angles=raw.map((x,i)=>rawToDeg(x,cal[i])*PI/180);}
+  reset(){this.az=-.65;this.el=.37;this.distance=window.innerWidth<600?.67:.85;this.center=[.06,.10,.09];}
+  frame(t){
+    if(t-this.last>12){this.last=t;for(let i=0;i<6;i++)this.actual[i]+=(this.angles[i]-this.actual[i])*this.smoothing;this.render();}
+    requestAnimationFrame(this.frame);
+  }
+  render(){
+    const ctx=this.ctx,w=this.canvas.width,h=this.canvas.height;
+    if(!w||!h)return;
+    const k=w/Math.max(1,this.canvas.clientWidth);
+    ctx.fillStyle='#0d1826';ctx.fillRect(0,0,w,h);
+    const polys=[];const lines=[];const circles=[];
+    const camera=[this.center[0]+this.distance*Math.cos(this.el)*Math.cos(this.az),this.center[1]+this.distance*Math.cos(this.el)*Math.sin(this.az),this.center[2]+this.distance*Math.sin(this.el)];
+    const front=norm(sub(this.center,camera));const right=norm(cross(front,[0,0,1]));const up=norm(cross(right,front));
+    const project=v=>{const d=sub(v,camera),z=d[0]*front[0]+d[1]*front[1]+d[2]*front[2]; if(z<=.03)return null;
+      const focal=Math.min(w*1.55,h*1.8);return [w/2+(d[0]*right[0]+d[1]*right[1]+d[2]*right[2])*focal/z,h*.53-(d[0]*up[0]+d[1]*up[1]+d[2]*up[2])*focal/z,z];};
+    const addFace=(vertices,color,accent=false)=>{const p=vertices.map(project);if(p.some(a=>!a))return;const normal=norm(cross(sub(vertices[1],vertices[0]),sub(vertices[2],vertices[0])));
+      const sun=norm([.15,-.40,1]);let light=.65+Math.max(0,normal[0]*sun[0]+normal[1]*sun[1]+normal[2]*sun[2])*.43;
+      polys.push({p,z:p.reduce((a,b)=>a+b[2],0)/p.length,color:shade(accent?C.highlight:color,light),accent});};
+    const box=(m,center,size,color,accent=false)=>{
+      const [x,y,z]=center,[dx,dy,dz]=size.map(v=>v/2);
+      const v=[[-dx,-dy,-dz],[dx,-dy,-dz],[dx,dy,-dz],[-dx,dy,-dz],[-dx,-dy,dz],[dx,-dy,dz],[dx,dy,dz],[-dx,dy,dz]].map(p=>point(m,add(p,center)));
+      for(const face of [[0,3,2,1],[4,5,6,7],[0,1,5,4],[1,2,6,5],[2,3,7,6],[3,0,4,7]])addFace(face.map(i=>v[i]),color,accent);
+    };
+    const capsule=(m,a,b,r,color,segments=10,accent=false)=>{
+      a=point(m,a);b=point(m,b);const axis=norm(sub(b,a));let t=norm(cross(axis,[0,0,1]));if(len(t)<.1)t=[1,0,0];const s=norm(cross(axis,t));
+      const v0=[],v1=[];
+      for(let j=0;j<segments;j++){const ang=j*2*PI/segments;const offset=add(mul(t,r*Math.cos(ang)),mul(s,r*Math.sin(ang)));v0.push(add(a,offset));v1.push(add(b,offset));}
+      for(let j=0;j<segments;j++)addFace([v0[j],v0[(j+1)%segments],v1[(j+1)%segments],v1[j]],color,accent);
+      addFace([...v0].reverse(),color,accent);addFace(v1,color,accent);
+    };
+    const line=(a,b,color='#2b4359',width=1)=>{const p=project(a),q=project(b);if(p&&q)lines.push({p,q,z:(p[2]+q[2])/2,color,width});};
+    const bead=(a,rad,color)=>{const p=project(a);if(p)circles.push({p,r:rad/Math.max(p[2],.1),z:p[2],color});};
+    // Floor grid and axes in true 3D.
+    for(let i=-5;i<=5;i++){const j=i*.06;line([-.36,j,-.007],[.30,j,-.007]);line([j,-.30,-.007],[j,.30,-.007]);}
+    line([0,0,0],[.10,0,0],'#e5686a',2);line([0,0,0],[0,.10,0],'#54cc92',2);line([0,0,0],[0,0,.10],'#67acff',2);
+    // Pose chain with 6 authentic URDF joint origins/rotation axes.
+    const M=armJointFrames(this.actual);
+    // base (link 0)
+    box(M[0],[-.010,0,.022],[.095,.085,.045],C.printed);
+    box(M[0],[-.028,0,.046],[.070,.064,.016],C.printedLight);
+    box(M[0],[.023,0,.046],[.038,.044,.052],C.servo);
+    box(M[0],[.023,-.022,.042],[.027,.003,.026],C.servoLight);
+    // shoulder: base pan and a motor cradle
+    capsule(M[1],[-.020,0,-.023],[-.058,0,-.053],.026,C.printed,10,this.highlight===0);
+    box(M[1],[-.032,0,-.039],[.045,.043,.056],C.servo);
+    capsule(M[1],[-.034,-.016,-.041],[-.034,.016,-.041],.025,C.printed,12,this.highlight===1);
+    // upper arm main structural piece
+    capsule(M[2],[.007,0,.010],[-.112,-.028,.008],.019,C.printed,10,this.highlight===1);
+    capsule(M[2],[-.112,-.028,.010],[-.112,-.028,.042],.020,C.servo,12,this.highlight===2);
+    box(M[2],[-.105,-.015,.022],[.052,.038,.045],C.servo);
+    // elbow + forearm
+    capsule(M[3],[0,0,.008],[-.1349,.0052,.012],.017,C.printed,10,this.highlight===2);
+    box(M[3],[-.105,.005,.018],[.051,.040,.043],C.servo);
+    capsule(M[3],[-.135,.005,.018],[-.135,.005,.048],.020,C.printed,12,this.highlight===3);
+    // Wrist Flex (ID4): wrist_link motor/brace is located in M[4].
+    // Its distal hinge is precisely the URDF wrist_roll origin: JOINTS[4].
+    capsule(M[4],[0,0,.0181],JOINTS[4].origin,.018,C.printed,12,this.highlight===3);
+    box(M[4],[0,-.0424,.0306],[.043,.049,.044],C.servo);
+    capsule(M[4],[0,-.0424,.0306],[0,-.0611,.0181],.014,C.printed,10,this.highlight===4);
+    // Wrist Roll (ID5): gripper_link revolves about the origin of M[5].
+    // The gripper servo center is the SO-ARM101 URDF visual origin.
+    box(M[5],[.0077,.0001,-.0234],[.040,.046,.045],C.servo);
+    capsule(M[5],[0,0,-.0234],[-.0079,-.000218121,-.055],.014,C.printed,10,this.highlight===4);
+    capsule(M[5],[-.0079,-.000218121,-.050],GRIPPER_FIXED_JAW_ROOT,.010,C.printed,10,this.highlight===5);
+    capsule(M[5],GRIPPER_FIXED_JAW_ROOT,GRIPPER_FIXED_JAW_TIP,.006,C.printedLight,8,this.highlight===5);
+    // Gripper (ID6): moving finger rotates around M[6], a genuine child of
+    // gripper_link. Its local Y axis points toward the fingertip at 0 radians.
+    const j6=M[6];
+    capsule(j6,[0,0,0],GRIPPER_MOVING_JAW_ROOT,.009,C.grip,10,this.highlight===5);
+    capsule(j6,GRIPPER_MOVING_JAW_ROOT,GRIPPER_MOVING_JAW_TIP,.006,C.printedLight,8,this.highlight===5);
+    // hubs, side bolts + link indicators
+    for(let i=0;i<6;i++){
+      const origin=point(M[i+1],[0,0,0]);
+      bead(origin,3.4*k,this.highlight===i?C.highlight:'#d6e6f4');
+      // project a tiny label anchored at center once geometry has been drawn
+    }
+    polys.sort((a,b)=>b.z-a.z);
+    for(const f of polys){ctx.fillStyle=f.color;ctx.beginPath();f.p.forEach(([x,y],i)=>i?ctx.lineTo(x,y):ctx.moveTo(x,y));ctx.closePath();ctx.fill();ctx.strokeStyle=f.accent?'rgba(56,255,220,.50)':'rgba(9,21,33,.22)';ctx.lineWidth=f.accent?1.5*k:.8*k;ctx.stroke();}
+    for(const l of lines){ctx.strokeStyle=l.color;ctx.lineWidth=l.width*k;ctx.beginPath();ctx.moveTo(...l.p);ctx.lineTo(...l.q);ctx.stroke();}
+    for(const b of circles){ctx.fillStyle=b.color;ctx.beginPath();ctx.arc(b.p[0],b.p[1],Math.min(8*k,Math.max(2*k,b.r)),0,2*PI);ctx.fill();}
+    // Joint labels overlay
+    for(let i=0;i<6;i++){
+      const p=project(point(M[i+1],[0,0,0])); if(!p)continue;
+      const alpha=this.highlight===i?1:.55;
+      ctx.globalAlpha=alpha;
+      ctx.beginPath();ctx.arc(p[0],p[1],11*k,0,2*PI);ctx.fillStyle=this.highlight===i?'#45d4c7':'#172a3b';ctx.fill();
+      ctx.lineWidth=1*k;ctx.strokeStyle='#91a7b7';ctx.stroke();
+      ctx.fillStyle=this.highlight===i?'#091f2b':'#e5f6ff';ctx.font=`${11*k}px system-ui`;ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText(String(i+1),p[0],p[1]);ctx.globalAlpha=1;
+    }
+    ctx.fillStyle='rgba(184,210,224,.66)';ctx.font=`${11*k}px system-ui`;ctx.textAlign='left';ctx.fillText('X · Y · Z  /  DRAG TO ORBIT',14*k,h-15*k);
+  }
+}
+
+
+
+const $=id=>document.getElementById(id);
+const storageFallback=new Map();
+const storage={getItem(k){try{return localStorage.getItem(k);}catch{return storageFallback.get(k)??null;}},setItem(k,v){try{localStorage.setItem(k,v);}catch{storageFallback.set(k,v);}}};
+function normalizeFollowSpeed(value){
+  if(value===null||value===undefined||value==='')return FOLLOW_SPEED_DEFAULT;
+  const n=Number(value);
+  if(!Number.isFinite(n))return FOLLOW_SPEED_DEFAULT;
+  return Math.round(clamp(n,FOLLOW_SPEED_MIN,FOLLOW_SPEED_MAX)/FOLLOW_SPEED_STEP)*FOLLOW_SPEED_STEP;
+}
+function normalizeFollowAcceleration(value){
+  if(value===null||value===undefined||value==='')return FOLLOW_ACCEL_DEFAULT;
+  const n=Number(value);
+  if(!Number.isFinite(n))return FOLLOW_ACCEL_DEFAULT;
+  return Math.round(clamp(n,FOLLOW_ACCEL_MIN,FOLLOW_ACCEL_MAX)/FOLLOW_ACCEL_STEP)*FOLLOW_ACCEL_STEP;
+}
+function normalizeFollowJerk(value){
+  if(value===null||value===undefined||value==='')return FOLLOW_JERK_DEFAULT;
+  const n=Number(value);
+  if(!Number.isFinite(n))return FOLLOW_JERK_DEFAULT;
+  return Math.round(clamp(n,FOLLOW_JERK_MIN,FOLLOW_JERK_MAX)/FOLLOW_JERK_STEP)*FOLLOW_JERK_STEP;
+}
+const uid=(id)=>`j${id}`;
+const now=()=>new Date().toLocaleString('en-GB',{hour12:false});
+const DEBUG_STORAGE_KEY='lerobotwebapp.debug.enabled.v1';
+const TRACE_STORAGE_KEY='lerobotwebapp.debug.trace.v1';
+const appKey='lerobotwebapp.webconsole.cal.v1';
+const defaults=()=>Array.from({length:6},()=>defaultCal());
+function loadSaved(){try{const json=JSON.parse(storage.getItem(appKey));if(Array.isArray(json?.joints)&&json.joints.length===6)return json.joints.map(j=>({ ...defaultCal(), ...j, valid: !!j.valid && validCalibration(j) }));}catch{}return defaults();}
+const state={mode:'serial',connected:false,connecting:false,torque:false,torqueBusy:false,torqueUnknown:false,calMode:false,record:false,
+  bus:null,servo:null,cal:loadSaved(),physicalCal:loadSaved(),
+  current:Array(6).fill(null),targets:Array(6).fill(2048),sent:Array(6).fill(2048),online:Array(6).fill(null),
+  selected:0,rangeRevision:0,polling:false,moving:false,pollAt:0,followerUpdatedAt:0,aligning:false,alignmentLastGoal:null,
+  awaitingLeader:false,alignmentAuthorized:false,followPhase:'IDLE',waitingReason:'',debugMode:true,traceTraffic:storage.getItem(TRACE_STORAGE_KEY)==='true',requested:Array(6).fill(null),blockedAxes:Array(6).fill(false),readStats:{sync:0,retry:0,recovered:0,failed:0},followMaxSpeed:normalizeFollowSpeed(storage.getItem(FOLLOW_SPEED_STORAGE_KEY)),followMaxAcceleration:normalizeFollowAcceleration(storage.getItem(FOLLOW_ACCEL_STORAGE_KEY)),followMaxJerk:normalizeFollowJerk(storage.getItem(FOLLOW_JERK_STORAGE_KEY)),useServoInterpolation:storage.getItem(SERVO_INTERPOLATION_KEY)!=='false',servoSpeedMargin:normalizeServoSpeedMargin(storage.getItem(SERVO_SPEED_MARGIN_KEY)),lastServoMotionCommands:null,servoMotionReadBusy:false,trajectory:Array(6).fill(null),motionLastAt:0,commandRate:0,measuredRate:null,trackingError:null,hardwareLimits:Array(6).fill(null),hardwareLimitsReady:false,limitWarningAt:Array(6).fill(0),limitWarningGoal:Array(6).fill(null),alignmentStallSince:Array(6).fill(0),alignmentStallWarned:Array(6).fill(false),followerReadFailures:0,measure:Array.from({length:6},()=>({min:Infinity,max:-Infinity})),mobileMenu:false,controlMode:'leader',usbPort:null};
+const leRobotFile={leader:null,follower:null};
+const leaderState={mode:'serial',connected:false,connecting:false,busy:false,servo:null,bus:null,current:Array(6).fill(null),updatedAt:0,online:Array(6).fill(null),teleop:false,lastError:'',readStats:{sync:0,retry:0,recovered:0,failed:0},readFailureCycles:0,usbPort:null,calMode:false,record:false,measure:Array.from({length:6},()=>({min:Infinity,max:-Infinity}))};
+const viewer=new ArmViewer($('armCanvas'));
+const leaderViewer=new ArmViewer($('leaderCanvas'));
+const logLines=[];
+const LOG_LIMIT=1500;
+function log(msg,severity=false){
+  const level=severity===true?'ERROR':(severity==='warn'?'WARN':'INFO');
+  const line=`[${now()}] [${level}] ${msg}`;
+  const output=$('logOutput');
+  const nearBottom=output.scrollHeight-output.scrollTop-output.clientHeight < 28;
+  logLines.push(line);
+  if(logLines.length>LOG_LIMIT)logLines.shift();
+  output.value=logLines.join('\n');
+  if(nearBottom||logLines.length===1)output.scrollTop=output.scrollHeight;
+  console[level==='ERROR'?'error':level==='WARN'?'warn':'log'](msg);
+}
+async function copyCommunicationLog(){
+  const output=$('logOutput'),text=output.value;
+  const status=$('copyLogStatus');
+  if(!text){status.textContent='No log entries to copy.';return;}
+  try{
+    if(navigator.clipboard?.writeText){await navigator.clipboard.writeText(text);}
+    else{
+      const originalStart=output.selectionStart,originalEnd=output.selectionEnd;
+      output.focus();output.select();
+      if(!document.execCommand('copy'))throw new Error('Clipboard permission denied');
+      output.setSelectionRange(originalStart,originalEnd);
+    }
+    status.textContent=`Copied ${logLines.length} log lines.`;
+  }catch(error){
+    status.textContent='Copy failed. Select the log text and copy manually.';
+    log('Log copy failed: '+error.message,true);
+  }
+}
+$('copyLogBtn').onclick=copyCommunicationLog;
+$('clearLogBtn').onclick=()=>{logLines.length=0;$('logOutput').value='';$('copyLogStatus').textContent='Log cleared.';};
+$('exportLogBtn').onclick=()=>{
+  const blob=new Blob([logLines.join('\n')+'\n'],{type:'text/plain;charset=utf-8'});
+  const url=URL.createObjectURL(blob),a=document.createElement('a');
+  a.href=url;a.download=`LeRobotWebApp_${APP_VERSION}_${new Date().toISOString().replace(/[:.]/g,'-')}.log`;
+  document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);
+};
+function logOp(arm,operation,result,detail='',severity=false){
+ log(`ARM=${arm.toUpperCase()} OP=${operation} RESULT=${result}${detail?' '+detail:''}`,severity);
+}
+const APP_VERSION='0.21.0';
+function traceTxRx(arm,kind,detail,intervalMs=1000){
+ if(!state.traceTraffic)return;
+ const key=arm+':'+kind,at=performance.now();
+ if((traceTxRx.last[key]??-Infinity)+intervalMs>at)return;
+ traceTxRx.last[key]=at;logOp(arm,kind,'OK',detail);
+}
+traceTxRx.last={};
+const partialLogAt={};
+function readbackDiagnostics(role,stats){
+ return event=>{
+   if(event.type==='partial'){
+     stats.sync++;const key=role+':partial:'+event.missing.join(',');
+     const ms=performance.now();
+     if(!partialLogAt[key]||ms-partialLogAt[key]>4000){
+       logOp(role,'SYNC_READ','PARTIAL',`RECEIVED=${event.received}/6 MISSING_IDS=${event.missing.join(',')}`,'warn');partialLogAt[key]=ms;
+     }
+   }else if(event.type==='retry_ok'){
+     stats.retry++;stats.recovered++;
+     logOp(role,'READ_RETRY','RECOVERED',`ID=${event.id} ATTEMPT=${event.attempt}`);
+   }else if(event.type==='retry_error'){
+     stats.retry++;
+     const key=role+':retry:'+event.id,ms=performance.now();
+     if(!partialLogAt[key]||ms-partialLogAt[key]>4000){
+       logOp(role,'READ_RETRY','FAILED',`ID=${event.id} ATTEMPT=${event.attempt} REASON=${event.error}`,'warn');partialLogAt[key]=ms;
+     }
+   }
+ };
+}
+
+$('debugModeCheckbox').checked=state.debugMode;
+$('traceSerialCheckbox').checked=state.traceTraffic;
+$('debugModeCheckbox').onchange=e=>{
+ if(e.target.checked && !confirm('BENCH DEBUG MODE: software-calibration limits will only warn. The arm may move farther than calibrated and some stalled joints may be excluded from automatic control. EEPROM bounds, communication watchdog and motor power cut-off remain unchanged. Ensure an empty work area, support the arm and have physical emergency stop access. Enable?')){
+   e.target.checked=false;return;
+ }
+ state.debugMode=e.target.checked;
+ logOp('follower','DEBUG_MODE',state.debugMode?'ENABLED':'DISABLED','EEPROM bounds remain enforced',state.debugMode?'warn':false);
+ refresh();
+};
+$('traceSerialCheckbox').onchange=e=>{state.traceTraffic=e.target.checked;storage.setItem(TRACE_STORAGE_KEY,String(state.traceTraffic));logOp('system','TRACE',state.traceTraffic?'ENABLED':'DISABLED','rate-limited TX/RX summaries');};
+function setMenu(open){state.mobileMenu=open;$('shell').classList.toggle('menu-open',open);$('backdrop').hidden=!open;}
+$('menuBtn').onclick=()=>setMenu(!state.mobileMenu);$('backdrop').onclick=()=>setMenu(false);
+$('fullscreenBtn').onclick=async()=>{try{if(document.fullscreenElement)await document.exitFullscreen();else await document.documentElement.requestFullscreen();}catch(e){log('Fullscreen: '+e.message,true);}};
+const calPanel=$('calibrationSection');
+let calibrationRole='follower';
+function activeArm(){return calibrationRole==='leader'?leaderState:state;}
+function activeCalibration(){return calibrationRole==='leader'?leToUi(leRobotFile.leader):state.cal;}
+function calibrationConnected(){return activeArm().connected;}
+function isCalibrating(){return !!activeArm().calMode;}
+$('calArm').onchange=()=>{if(state.calMode||leaderState.calMode){$('calArm').value=calibrationRole;return;} calibrationRole=$('calArm').value;renderCalEditor();};
+if(window.innerWidth<=710)calPanel.classList.add('collapsed');
+$('toggleCalPanelBtn').onclick=()=>{const closed=calPanel.classList.toggle('collapsed');$('toggleCalPanelBtn').textContent=closed?'Open calibration ▾':'Close calibration ▴';$('toggleCalPanelBtn').setAttribute('aria-expanded',String(!closed));};
+$('resetCameraBtn').onclick=()=>viewer.reset();$('zoomInBtn').onclick=()=>viewer.distance=clamp(viewer.distance*.83,.28,1.6);$('zoomOutBtn').onclick=()=>viewer.distance=clamp(viewer.distance*1.2,.28,1.6);
+function describePort(port){
+  if(!port)return 'No USB port selected';
+  const info=port.getInfo?.()||{};
+  const id=n=>n===undefined?'----':Number(n).toString(16).toUpperCase().padStart(4,'0');
+  return `Selected USB device (VID ${id(info.usbVendorId)}, PID ${id(info.usbProductId)}). The browser does not reveal Windows COM numbers.`;
+}
+async function chooseUsbPort(role){
+  if(!navigator.serial)throw Error('Web Serial is unavailable. Use Chrome or Edge on localhost/HTTPS.');
+  const target=role==='leader'?leaderState:state;
+  const other=role==='leader'?state:leaderState;
+  if(target.connected||target.connecting)throw Error('Disconnect the '+role+' arm before changing its USB port.');
+  const port=await navigator.serial.requestPort();
+  if(port===other.usbPort||port===other.bus?.port)throw Error('Leader and Follower must use different USB ports.');
+  target.usbPort=port;
+  $(role==='leader'?'leaderPortLabel':'followerPortLabel').textContent=describePort(port);
+  log(`${role} USB port selected; connecting automatically`);
+  if(role==='leader')await connectLeader();else await connect();
+}
+$('selectFollowerPortBtn').onclick=async()=>{try{await chooseUsbPort('follower');}catch(e){log(e.message,true);}};
+$('selectLeaderPortBtn').onclick=async()=>{try{await chooseUsbPort('leader');}catch(e){log(e.message,true);}};
+$('baudSelect').value=storage.getItem('lerobotwebapp.baud')||'1000000';
+$('baudSelect').onchange=()=>storage.setItem('lerobotwebapp.baud',$('baudSelect').value);
+
+for (let i=0;i<6;i++){
+  const [name,label]=JOINT_NAMES[i];
+  const option=document.createElement('option');option.value=i;option.textContent=`ID ${i+1} — ${label} / ${name}`;$('calJoint').append(option);
+  const card=document.createElement('div');card.className='joint-card';card.id=uid(i);
+  card.innerHTML=`<div class="joint-header"><div class="joint-index">${String(i+1).padStart(2,'0')}</div><div class="joint-name"><strong>${label}</strong><small>${name}</small></div><div class="joint-value"><strong id="cmd${i}">0</strong><small>Command Value</small></div></div><input type="range" min="-1000" max="1000" step="1" value="0" id="slider${i}" aria-label="${label} slider"><div class="joint-metrics"><span>MIN <strong id="min${i}">—</strong></span><span id="deg${i}">0.0°</span><span>MAX <strong id="max${i}">—</strong></span></div><div class="joint-extra" id="jointExtra${i}">Requested — / Applied — / Measured —</div><div class="joint-range-outside" id="outside${i}" hidden>Calibration range is required to move this joint.</div>`;
+  $('jointList').append(card);
+  card.onpointerenter=()=>viewer.highlight=i;
+  card.onpointerleave=()=>viewer.highlight=-1;
+  $(`slider${i}`).oninput=event=>onSlider(i,+event.target.value);
+  card.querySelector('.joint-index').onclick=()=>selectJoint(i);
+}
+$('calJoint').onchange=e=>selectJoint(+e.target.value);
+for(const id of ['calMin','calMax']) $(id).addEventListener('input',()=>{$('calCenter').value=Math.round((Number($('calMin').value)+Number($('calMax').value))/2)||0;});
+function selectJoint(i){state.selected=i;$('calJoint').value=String(i);viewer.highlight=i;renderCalEditor();}
+function currentValue(i){return state.current[i]??state.targets[i]??state.cal[i].center;}
+function validCount(){return state.cal.filter(c=>c.valid&&validCalibration(c)).length;}
+function effectiveCal(i){
+  const saved=state.cal[i];
+  return saved.valid&&validCalibration(saved) ? saved : uncalibratedRange;
+}
+function physicalReady(){return state.online.every(v=>v===true);}
+function canMotion(){return state.connected&&state.torque&&!state.torqueBusy&&!state.calMode&&physicalReady();}
+function canManualMotion(){return state.controlMode==='manual'&&canMotion()&&!leaderState.teleop;}
+function setControlMode(mode){
+  if(mode!=='manual'&&mode!=='leader')return;
+  if(leaderState.teleop)stopTeleop('Control mode changed');
+  if(state.aligning)cancelAlignment('Control mode changed');
+  state.awaitingLeader=false;state.alignmentAuthorized=false;state.followPhase='IDLE';
+  state.controlMode=mode;
+  if(mode==='manual'){state.requested=[...state.targets];state.blockedAxes=Array(6).fill(false);}
+  state.motionLastAt=0;resetTrajectory();
+  leaderState.lastDiagnosticSignature='';
+  refresh();
+  log(`Follower control mode: ${mode==='manual'?'Manual':'Leader Control'}`);
+}
+function effectiveSpeedLimit(){
+  if(state.controlMode!=='leader'||!state.torque||!state.connected||!leaderState.connected)return 0;
+  if(state.aligning && state.followPhase==='ALIGNING')return Math.min(state.followMaxSpeed,ALIGN_SAFE_MAX_SPEED);
+  if(leaderState.teleop && state.followPhase==='FOLLOWING')return state.followMaxSpeed;
+  return 0;
+}
+function renderLiveDiagnostics(){
+  const phase=state.controlMode==='manual'?'MANUAL':state.followPhase;
+  $('followPhaseValue').textContent=phase+(state.blockedAxes.some(Boolean)?` (${6-state.blockedAxes.filter(Boolean).length}/6 axes)`:'');
+  $('followPhaseValue').className=phase==='BLOCKED'?'error':phase==='ALIGNING'||phase==='WAIT_LEADER'?'warn':'';
+  const active=effectiveSpeedLimit();
+  $('followEffectiveSpeed').textContent=`${active} tick/s${phase==='ALIGNING'?' (alignment cap)':''}`;
+  $('followCommandRate').textContent=`${Math.round(state.commandRate||0)} tick/s`;
+  $('followAccelerationLimit').textContent=`${state.aligning?Math.min(state.followMaxAcceleration,ALIGN_SAFE_MAX_ACCEL):state.followMaxAcceleration} tick/s²`;
+  $('followJerkLimit').textContent=`${state.aligning?Math.min(state.followMaxJerk,ALIGN_SAFE_MAX_JERK):state.followMaxJerk} tick/s³`;
+  $('servoMotionStatus').textContent=state.useServoInterpolation?'ON · Leader Control only':'OFF · legacy 2-byte';
+  $('servoMotionSpeed').textContent=state.lastServoMotionCommands?
+    `${Math.max(...state.lastServoMotionCommands.map(c=>c.speed))} tick/s · ACC=${state.lastServoMotionCommands[0].acceleration}`:'—';
+  $('servoInterpolationCheckbox').disabled=state.torque||state.torqueUnknown||state.torqueBusy||state.moving;
+  $('readServoMotionBtn').disabled=!state.connected||!state.servo||state.connecting||state.torqueBusy||state.moving||state.polling||state.servoMotionReadBusy||state.aligning||leaderState.teleop;
+  $('followMeasuredRate').textContent=state.measuredRate===null?'—':`${Math.round(state.measuredRate)} tick/s`;
+  const error=state.current.every(Number.isFinite)?Math.max(...state.targets.map((v,i)=>Math.abs(v-state.current[i]))):null;
+  $('followTrackingError').textContent=error===null?'—':`${Math.round(error)} tick`;
+  const count=state.hardwareLimits.filter(x=>x&&x.valid).length;
+  const status=state.hardwareLimitsReady?`${count}/6 verified${count<6?' (check log)':''}`:'Not read';
+  $('followHardwareStatus').textContent=status;
+  $('followHardwareStatus').className=state.hardwareLimitsReady&&count<6?'warn':'';
+}
+function renderFollowSpeed(){
+  const speed=state.followMaxSpeed;
+  $('followSpeedSlider').value=String(speed);
+  $('followSpeedSlider').setAttribute('aria-valuetext',`${speed} tick/s`);
+  $('followSpeedValue').textContent=`${speed} tick/s`;
+  $('followAccelSlider').value=String(state.followMaxAcceleration);
+  $('followAccelValue').textContent=`${state.followMaxAcceleration} tick/s²`;
+  $('followJerkSlider').value=String(state.followMaxJerk);
+  $('followJerkValue').textContent=`${state.followMaxJerk} tick/s³`;
+  $('servoInterpolationCheckbox').checked=state.useServoInterpolation;
+  $('servoInterpolationCheckbox').disabled=state.torque||state.torqueUnknown||state.torqueBusy||state.moving;
+  $('servoSpeedMarginSlider').value=String(state.servoSpeedMargin);
+  $('servoSpeedMarginValue').textContent=`${state.servoSpeedMargin.toFixed(2)}×`;
+  for(const [id,value] of [['followSpeedSlowBtn',200],['followSpeedNormalBtn',400],['followSpeedFastBtn',3000]]){
+    const button=$(id);
+    button.classList.toggle('selected',speed===value);
+    button.setAttribute('aria-pressed',String(speed===value));
+  }
+  renderLiveDiagnostics();
+}
+function setFollowSpeed(value){
+  const next=normalizeFollowSpeed(value);
+  if(next===state.followMaxSpeed){renderFollowSpeed();return;}
+  state.followMaxSpeed=next;
+  storage.setItem(FOLLOW_SPEED_STORAGE_KEY,String(next));
+  renderFollowSpeed();
+  log(`Follower speed SELECTED=${next} tick/s; acceleration=${state.followMaxAcceleration} tick/s^2; phase=${state.followPhase}; EFFECTIVE=${effectiveSpeedLimit()} tick/s${state.aligning?' (ALIGNING safety cap)':''}.`);
+}
+function setFollowAcceleration(value){
+  const next=normalizeFollowAcceleration(value);
+  if(next===state.followMaxAcceleration){renderFollowSpeed();return;}
+  state.followMaxAcceleration=next;
+  storage.setItem(FOLLOW_ACCEL_STORAGE_KEY,String(next));
+  renderFollowSpeed();
+  logOp('follower','TRAJECTORY_ACCEL','UPDATED',`MAX_ACCEL=${next} tick/s^2 PHASE=${state.followPhase}`);
+}
+function setFollowJerk(value){
+  const next=normalizeFollowJerk(value);
+  if(next===state.followMaxJerk){renderFollowSpeed();return;}
+  state.followMaxJerk=next;
+  storage.setItem(FOLLOW_JERK_STORAGE_KEY,String(next));
+  renderFollowSpeed();
+  logOp('follower','TRAJECTORY_JERK','UPDATED',`MAX_JERK=${next} tick/s^3 PHASE=${state.followPhase}`);
+}
+$('followAccelSlider').oninput=e=>setFollowAcceleration(e.target.value);
+$('followJerkSlider').oninput=e=>setFollowJerk(e.target.value);
+$('followSpeedSlider').oninput=e=>setFollowSpeed(e.target.value);
+$('servoSpeedMarginSlider').oninput=e=>{
+  const value=normalizeServoSpeedMargin(e.target.value);
+  state.servoSpeedMargin=value;
+  storage.setItem(SERVO_SPEED_MARGIN_KEY,String(value));
+  renderFollowSpeed();
+  logOp('follower','SERVO_SPEED_MARGIN','UPDATED',`FACTOR=${value.toFixed(2)} BASE=trajectory_velocity`);
+};
+$('servoInterpolationCheckbox').onchange=e=>{
+  if(state.torque||state.torqueUnknown||state.torqueBusy||state.moving){
+    e.target.checked=state.useServoInterpolation;
+    logOp('follower','SERVO_INTERPOLATION','REJECTED','Switch requires Follower torque OFF','warn');
+    return;
+  }
+  state.useServoInterpolation=!!e.target.checked;
+  state.lastServoMotionCommands=null;
+  storage.setItem(SERVO_INTERPOLATION_KEY,String(state.useServoInterpolation));
+  renderFollowSpeed();
+  logOp('follower','SERVO_INTERPOLATION',state.useServoInterpolation?'ENABLED':'DISABLED','Leader Control SYNC WRITE mode selected; EEPROM unchanged');
+};
+async function readServoMotionRegisters(){
+  if(!state.connected||!state.servo||state.connecting||state.torqueBusy||state.moving||state.polling||state.servoMotionReadBusy||state.aligning||leaderState.teleop){
+    logOp('follower','SERVO_MOTION_READ','REJECTED','Requires a connected idle arm; stop automatic following first','warn');return;
+  }
+  const button=$('readServoMotionBtn');button.disabled=true;
+  state.servoMotionReadBusy=true;
+  logOp('follower','SERVO_MOTION_READ','REQUESTED','ADDR=41,42,44,46 IDS=1..6 (read only)');
+  try{
+    let failed=0;
+    for(let id=1;id<=6;id++){
+      try{
+        const acc=await state.servo.readRegister(id,41,1);
+        const goal=await state.servo.readRegister(id,42,2);
+        const time=await state.servo.readRegister(id,44,2);
+        const speed=await state.servo.readRegister(id,46,2);
+        const last=state.lastServoMotionCommands?.[id-1];
+        logOp('follower','SERVO_MOTION_READ','OK',`ID=${id} ACC=${acc} GOAL=${goal} TIME=${time} SPEED=${speed}`+
+          (last?` LAST_TX=${last.position}/${last.speed}/${last.acceleration}`:''));
+        if(last&&(last.position!==goal||last.speed!==speed||last.acceleration!==acc||time!==0))
+          logOp('follower','SERVO_MOTION_VERIFY','MISMATCH',`ID=${id} LAST_TX=${last.position}/${last.speed}/${last.acceleration} READ=${goal}/${speed}/${acc} TIME=${time}`,'warn');
+      }catch(e){failed++;logOp('follower','SERVO_MOTION_READ','FAILED',`ID=${id} ${e.message}`,'warn');}
+    }
+    logOp('follower','SERVO_MOTION_READ',failed?'PARTIAL':'COMPLETE',`READ_OK=${6-failed}/6`);
+  }finally{state.servoMotionReadBusy=false;renderLiveDiagnostics();}
+}
+$('readServoMotionBtn').onclick=readServoMotionRegisters;
+for(const [id,value] of [['followSpeedSlowBtn',200],['followSpeedNormalBtn',400],['followSpeedFastBtn',3000]])
+  $(id).onclick=()=>setFollowSpeed(value);
+renderFollowSpeed();
+$('controlManualBtn').onclick=()=>setControlMode('manual');
+$('controlLeaderBtn').onclick=()=>setControlMode('leader');
+// Physical STS3215 angle limits: EEPROM min/max at registers 9/11.
+// Reads are performed only at initial Follower connection with torque OFF.
+function normalizedHardwareLimits(min,max){
+  const valid=Number.isInteger(min)&&Number.isInteger(max)&&min>=0&&max<=4095&&min<max;
+  return {min,max,valid};
+}
+function intersectLimits(software,hardware){
+  if(!hardware?.valid)return {min:software.min,max:software.max,verified:false};
+  const min=Math.max(software.min,hardware.min),max=Math.min(software.max,hardware.max);
+  if(min>max)throw Error(`No overlap between software range ${software.min}..${software.max} and EEPROM ${hardware.min}..${hardware.max}`);
+  return {min,max,verified:true};
+}
+// Map commands to the reachable intersection, not an EEPROM-inaccessible
+// goal. Warn with axis ID: this intentionally cannot repair servo EEPROM.
+function chooseFollowerGoal(wanted,software,hardware,debugMode=false){
+  if(!Number.isFinite(wanted))throw Error('Invalid requested servo position');
+  if(debugMode && !hardware?.valid)throw Error('Debug mode needs verified EEPROM bounds');
+  const bounds=debugMode
+    ? {min:hardware.min,max:hardware.max,verified:true}
+    : intersectLimits(software,hardware);
+  return {requested:Math.round(wanted),applied:Math.round(clamp(wanted,bounds.min,bounds.max)),bounds,
+    outsideSoftware:wanted<software.min||wanted>software.max,
+    outsideHardware:!!hardware?.valid&&(wanted<hardware.min||wanted>hardware.max)};
+}
+function reachableFollowerGoal(i,wanted,context='Leader'){
+  const cal=effectiveCal(i),hardware=state.hardwareLimits[i];
+  const result=chooseFollowerGoal(wanted,cal,hardware,state.debugMode);
+  const nowMs=performance.now();
+  if(result.applied!==result.requested || (state.debugMode&&result.outsideSoftware)){
+    const key=`${result.requested}:${result.applied}:${state.debugMode}`;
+    if(state.limitWarningGoal[i]!==key||nowMs-state.limitWarningAt[i]>5000){
+      logOp('follower','LIMIT',result.applied!==result.requested?'CLAMPED':'WARN',
+        `ID=${i+1} MODE=${context} REQUEST=${result.requested} APPLIED=${result.applied} SOFTWARE=${cal.min}..${cal.max} EEPROM=${hardware?.valid?hardware.min+'..'+hardware.max:'unverified'} DEBUG=${state.debugMode}`,'warn');
+      state.limitWarningGoal[i]=key;state.limitWarningAt[i]=nowMs;
+    }
+  }
+  return result.applied;
+}
+// A command step is independently validated AFTER interpolation, avoiding
+// pre-EEPROM intermediate goals (e.g. 1301 when EEPROM minimum is 1647).
+function enforceSentGoal(i,wanted){
+  const hardware=state.hardwareLimits[i];
+  const current=state.current[i];
+  if(hardware?.valid && Number.isFinite(current) && (current<hardware.min-12||current>hardware.max+12)){
+    const message=`ID${i+1} present=${current} is outside EEPROM=${hardware.min}..${hardware.max}; reposition with torque OFF; no automatic jump`;
+    throw Error(message);
+  }
+  return reachableFollowerGoal(i,wanted,'TX FINAL');
+}
+
+async function readFollowerHardwareLimits(){
+  const limits=Array(6).fill(null);
+  for(let i=0;i<6;i++){
+    if(state.online[i]!==true)continue;
+    try{
+      const min=await state.servo.readRegister(i+1,9,2);
+      const max=await state.servo.readRegister(i+1,11,2);
+      const item=normalizedHardwareLimits(min,max);
+      limits[i]=item;
+      const soft=effectiveCal(i);
+      if(!item.valid){
+        log(`ID${i+1} EEPROM limits ${min}..${max}: invalid or multi-turn mode; cannot verify a safe position range.`, 'warn');
+      }else if(item.min!==soft.min||item.max!==soft.max){
+        log(`ID${i+1} calibration mismatch: software ${soft.min}..${soft.max}, servo EEPROM ${item.min}..${item.max}. Automatic targets will use intersection; EEPROM is NOT changed.`, 'warn');
+      }
+    }catch(e){
+      log(`ID${i+1} EEPROM limits unreadable: ${e.message}; physical limits NOT verified.`, 'warn');
+    }
+  }
+  state.hardwareLimits=limits;
+  state.hardwareLimitsReady=true;
+  log(`Follower EEPROM limit readback: ${limits.filter(x=>x?.valid).length}/6 valid; read-only.`);
+  renderLiveDiagnostics();
+}
+// Read-only diagnostic for ID6. Use while stopped when possible: requests
+// briefly share the Follower USB serial queue with the 20 ms control loop.
+let gripperDiagnosticBusy=false;
+async function diagnoseGripper(){
+  if(gripperDiagnosticBusy||!state.connected||!state.servo)return;
+  if(state.aligning||leaderState.teleop){
+    log('ID6 diagnostic: stop Leader following or switch to Manual before reading diagnostics so control timing is not disturbed.','warn');
+    return;
+  }
+  gripperDiagnosticBusy=true;
+  const button=$('diagnoseGripperBtn');button.disabled=true;
+  try{
+    const values={};
+    for(const [name,address,size] of [['servoMin',9,2],['servoMax',11,2],['presentGoal',42,2],['torque',40,1],['mode',33,1],['presentPosition',56,2]]){
+      values[name]=await state.servo.readRegister(6,address,size);
+    }
+    const cal=effectiveCal(5);
+    const target=state.sent[5];
+    const leaderMappedGoal=leaderState.updatedAt&&leaderState.current.every(Number.isFinite)
+      ?teleopGoals(leaderState.current)[5]:null;
+    const report=analyzeGripperDiagnostics({softwareMin:cal.min,softwareMax:cal.max,requestedGoal:target,leaderMappedGoal,...values});
+    log(`ID6 READ-ONLY: software calibration=${cal.min}..${cal.max}, LeRobot JSON=${leRobotFile.follower?.gripper?.range_min}..${leRobotFile.follower?.gripper?.range_max}, EEPROM=${values.servoMin}..${values.servoMax}`);
+    log(`ID6 READ-ONLY: last sent goal=${target}, Leader-mapped goal=${leaderMappedGoal??'N/A'}, Goal_Position=${values.presentGoal}, Present_Position=${values.presentPosition}, Torque_Enable=${values.torque}, Operating_Mode=${values.mode}, follow phase=${state.followPhase}`);
+    if(!report.length)log('ID6 READ-ONLY: no obvious register mismatch detected. Check power, mechanical linkage and motion/readback under supervised testing.');
+    else for(const message of report)log('ID6 DIAG: '+message,'warn');
+    if(Number.isFinite(leaderMappedGoal))reachableFollowerGoal(5,leaderMappedGoal,'ID6 diagnostic');
+  }catch(e){log('ID6 diagnostic failed: '+e.message,true);}
+  finally{gripperDiagnosticBusy=false;button.disabled=!state.connected;}
+}
+$('diagnoseGripperBtn').onclick=diagnoseGripper;
+function viewCals(){return state.cal.map((c,i)=>effectiveCal(i));}
+function setTargetFromCurrent(){
+  for(let i=0;i<6;i++){
+    const value=currentValue(i);
+    const c=effectiveCal(i)??state.cal[i];
+    state.targets[i]=Math.round(value); // keep the measured physical holding pose
+    state.sent[i]=Math.round(value);
+  }
+  resetTrajectory();
+}
+function refresh(){
+  const busy=state.connecting;
+  for(const [mode,id] of [['manual','controlManualBtn'],['leader','controlLeaderBtn']]){const btn=$(id);btn.classList.toggle('selected',state.controlMode===mode);btn.setAttribute('aria-pressed',String(state.controlMode===mode));}
+  $('controlModeInfo').textContent=state.controlMode==='manual'?'Manual: each Follower slider maps to its joint calibration; torque ON is required.':'Leader Control: torque ON authorizes guarded low-speed alignment; if Leader data is unavailable, WAIT_LEADER holds position until fresh six-axis data arrives.';
+  $('connectBtn').textContent=busy?'Connecting…':state.connected?'Disconnect Follower':'Reconnect Follower';
+  $('connectBtn').disabled=busy||(!state.connected&&!state.usbPort);
+  $('selectFollowerPortBtn').disabled=busy||state.connected;
+  $('baudSelect').disabled=state.connected||busy;
+  $('followerConnectStatus').textContent=busy?'Connecting…':state.connected?'Connected':'Disconnected';
+  $('followerConnectStatus').className='port-connection-status'+(state.connected?' online':'');
+  $('headerStatus').className='header-chip '+(state.connected?'status-connected':'status-disconnected');
+  $('headerStatus').innerHTML=`<i></i>Follower ${state.connected?'ON':'OFF'} · Leader ${leaderState.connected?'ON':'OFF'}`;
+  $('overlayState').textContent=!state.connected?'OFFLINE':state.calMode?'CALIBRATING':state.aligning?'ALIGNING':state.awaitingLeader?'WAIT_LEADER':state.torque?'ACTIVE':'TORQUE OFF';
+  const active=activeArm(),isRecording=!!active.record;
+  $('calArm').disabled=state.calMode||leaderState.calMode;
+  $('calArmConnection').textContent=`${calibrationRole==='leader'?'Leader':'Follower'} / ${active.connected?'Connected':'Offline'} / ${active.mode.toUpperCase()}`;
+  $('startCalBtn').disabled=!active.connected||leaderState.teleop;
+  $('startCalBtn').textContent=isCalibrating()?'Exit Calibration':'1. Start Calibration';
+  $('sampleBtn').disabled=!isCalibrating()||isRecording;
+  $('stopSampleBtn').disabled=!isCalibrating()||!isRecording;
+  $('applyCalBtn').disabled=leaderState.teleop||!leRobotFile[calibrationRole]||(calibrationRole==='follower'&&state.torque);
+  $('debugModeCheckbox').disabled=state.torque||state.torqueBusy||leaderState.teleop||state.aligning;
+  $('torqueBtn').disabled=!state.connected||state.connecting||!state.hardwareLimitsReady||state.calMode||state.torqueBusy||(!state.torque&&!state.torqueUnknown&&!physicalReady());
+  $('torqueBtn').textContent=state.torqueUnknown?'Follower Torque: UNKNOWN — Retry OFF':state.torque?'Follower Torque: ON — Click to turn OFF':'Follower Torque: OFF — Click to turn ON';
+  $('torqueBtn').className=(state.torque||state.torqueUnknown?'danger-btn':'secondary-btn')+' block';
+  $('midpointBtn').disabled=!canManualMotion();
+  $('calBadge').textContent=isCalibrating()?'CALIBRATING':`${validCount()} / 6 calibrated${validCount()<6&&physicalReady()?' · uncalibrated travel unrestricted':''}`;
+  $('calCount').textContent=`${validCount()} / 6`;
+
+  $('torqueHint').textContent=state.torqueUnknown?'The physical torque state is UNKNOWN. Support the arm and retry OFF.':state.calMode?'Calibration mode: support the arm with torque OFF.':validCount()<6?'Manual commands require calibrated joints; inspect all ranges before moving.':'Support the arm when switching Follower torque OFF. A physical emergency stop is required.';
+  const ss=$('servoStatus');ss.innerHTML='';
+  for(let i=0;i<6;i++){
+    const el=document.createElement('div');el.className='servo-pill '+(state.online[i]===true?'online':state.online[i]===false?'error':'');
+    el.innerHTML=`<strong>ID ${i+1}</strong>${state.online[i]===true?'ONLINE':state.online[i]===false?'NO REPLY':'—'}`;ss.append(el);
+    const c=effectiveCal(i),raw=state.targets[i],displayRaw=state.controlMode==='manual'&&Number.isFinite(state.requested[i])?state.requested[i]:raw,command=rawToCommand(displayRaw,c);
+    const slider=$(`slider${i}`);
+    slider.disabled=!canManualMotion()||!c.valid;
+    slider.min=String(COMMAND_MIN);slider.max=String(COMMAND_MAX);
+    slider.value=String(Math.round(command));
+    $(`outside${i}`).hidden=true;
+    $(`cmd${i}`).textContent=formatCommand(Math.round(command));
+    $(`min${i}`).textContent=`${c.min}${c.uncalibrated?' (full range)':''}`;$(`max${i}`).textContent=`${c.max}${c.uncalibrated?' (full range)':''}`;
+    $(`deg${i}`).textContent=`${rawToDeg(displayRaw,c).toFixed(1)}°`;
+    const measured=state.current[i];
+    const info=$(`jointExtra${i}`);
+    info.textContent=`REQ ${Math.round(displayRaw)} / TX ${Math.round(state.sent[i])} / RX ${Number.isFinite(measured)?Math.round(measured):'—'}${state.blockedAxes[i]?' / HELD':''}`;
+    info.classList.toggle('warn',state.blockedAxes[i]||Math.round(displayRaw)!==Math.round(state.sent[i]));
+    $(uid(i)).classList.toggle('disabled',!canManualMotion()||!c.valid);
+    $(uid(i)).classList.toggle('active',state.selected===i);
+  }
+  updateLive();
+  for(const b of document.querySelectorAll('.take-btn')) b.disabled=!isCalibrating()||!calibrationConnected();
+}
+function updateLive(){
+  const i=state.selected,raw=activeArm().current[i];$('calLive').textContent=raw===null?'—':String(Math.round(raw));
+}
+function renderCalEditor(){
+  if(!leRobotFile[calibrationRole])return;
+  $('exportCalBtn').textContent=`↓ Export ${calibrationRole==='leader'?'Leader':'Follower'} JSON`;
+  $('importCalBtn').textContent=`↑ Import ${calibrationRole==='leader'?'Leader':'Follower'} JSON`;
+  const c=activeCalibration()[state.selected];$('calMin').value=c.min;$('calCenter').value=c.center;$('calMax').value=c.max;$('calInvert').checked=!!c.invert;
+  $('calOffset').value=leRobotFile[calibrationRole]?.[JOINT_NAMES[state.selected][0]]?.homing_offset??0;
+  $('calInfo').textContent=c.valid?`${calibrationRole==='leader'?'Leader':'Follower'} joint calibration loaded`:'Uncalibrated: full-range commands can cause collisions. MIN < CENTER < MAX';
+  $('calInfo').classList.remove('error');updateLive();
+  refresh();
+}
+function onSlider(i,command){
+  const c=effectiveCal(i);if(!canManualMotion()||!c.valid)return;
+  const boundedCommand=clamp(command,COMMAND_MIN,COMMAND_MAX);
+  const raw=commandToRaw(boundedCommand,c);
+  try{
+    state.requested[i]=raw;
+    state.targets[i]=reachableFollowerGoal(i,raw,'Manual');
+  }catch(e){logOp('follower','MANUAL_TARGET','REJECTED',`ID=${i+1} REQUEST=${raw} REASON=${e.message}`,'warn');return;}
+  $(`slider${i}`).value=String(Math.round(boundedCommand));
+  $(`outside${i}`).hidden=true;
+  $(`cmd${i}`).textContent=formatCommand(Math.round(boundedCommand));
+  $(`deg${i}`).textContent=`${rawToDeg(raw,c).toFixed(1)}°`;
+  $(`jointExtra${i}`).textContent=`REQ ${raw} / TARGET ${state.targets[i]} / RX ${Number.isFinite(state.current[i])?state.current[i]:'—'}`;
+  $(`jointExtra${i}`).classList.toggle('warn',raw!==state.targets[i]);
+  traceTxRx('follower','MANUAL_GOAL',`ID=${i+1} REQUEST=${raw} TARGET=${state.targets[i]}`,150);
+  viewer.highlight=i;
+  viewer.setPose(state.targets,viewCals());
+}
+
+async function connect(){
+  if(state.connected||state.connecting)return;
+  if(!state.usbPort){log('Choose the Follower USB port first.',true);return;}
+  state.connecting=true;refresh();
+  const transport=new WebSerialBus();
+  try{
+    const baud=Number($('baudSelect').value);
+    if(state.usbPort===leaderState.usbPort||state.usbPort===leaderState.bus?.port)throw Error('Follower and Leader cannot share the same USB port.');
+    state.bus=transport;
+    logOp('follower','CONNECT','REQUESTED',`BAUD=${baud} PORT=${describePort(state.usbPort)}`);
+    await transport.connect(baud,state.usbPort);
+    state.servo=new ServoBus(transport);state.connected=true;
+    state.online=Array(6).fill(null);state.hardwareLimits=Array(6).fill(null);state.hardwareLimitsReady=false;state.lastServoMotionCommands=null;state.commandRate=0;state.measuredRate=null;state.torque=false;state.torqueUnknown=false;state.calMode=false;state.record=false;state.motionLastAt=0;resetTrajectory();state.aligning=false;state.alignmentLastGoal=null;state.awaitingLeader=false;state.alignmentAuthorized=false;state.followPhase='IDLE';
+    logOp('follower','CONNECT','SUCCESS',`BAUD=${baud} PORT=${describePort(state.usbPort)}`);
+    log(`Follower connected: USB Serial ${baud} bps`);
+    await scan();
+    await readFollowerHardwareLimits();
+  }catch(e){
+    logOp('follower','CONNECT','FAILED',e.message,true);
+    log('Follower connection failed: '+e.message,true);
+    try{await transport.close();}catch{}
+    state.bus=null;state.servo=null;state.connected=false;
+  }finally{state.connecting=false;refresh();}
+}
+async function disconnect(){
+  if(leaderState.teleop)stopTeleop('Follower disconnected');
+  if(state.aligning)cancelAlignment('Follower disconnected');
+  // By design, disconnect does NOT change the actuator's torque state.
+  // Explicit torque-off is a separate operation because a falling arm is hazardous.
+  try{await state.bus?.close();}catch(e){log('Disconnect error: '+e.message,true);}
+  state.bus=null;state.servo=null;state.connected=false;state.torque=false;state.torqueUnknown=false;state.calMode=false;state.record=false;state.motionLastAt=0;resetTrajectory();state.aligning=false;state.alignmentLastGoal=null;state.awaitingLeader=false;state.alignmentAuthorized=false;state.followPhase='IDLE';
+  state.online=Array(6).fill(null);state.current=Array(6).fill(null);state.hardwareLimits=Array(6).fill(null);state.hardwareLimitsReady=false;state.lastServoMotionCommands=null;
+  logOp('follower','DISCONNECT','COMPLETE','Physical torque state unverified','warn');
+  log('Disconnected. Physical torque state may remain enabled.','warn');refresh();
+}
+$('connectBtn').onclick=async()=>{if(state.connected)await disconnect();else await connect();};
+async function scan(){
+  if(!state.servo)return;
+  let values;
+  try{ values=await state.servo.readPositionsSync(FOLLOWER_SYNC_TIMEOUT_MS,readbackDiagnostics('follower',state.readStats)); }
+  catch(e){log('Follower initial SYNC READ failed; using one-time individual diagnostic scan: '+e.message,'warn');values=await state.servo.scan();}
+  state.online=values.map(v=>v!==null);
+  state.current=values;
+  state.followerUpdatedAt=values.every(Number.isFinite)?performance.now():0;
+  if(state.connected&&!state.torque){
+    for(let i=0;i<6;i++)if(values[i]!==null){state.targets[i]=values[i];state.sent[i]=values[i];}
+  }
+  log(`Servos detected: ${state.online.filter(Boolean).length}/6`+(state.online.some(v=>!v)?'(some motor IDs did not respond)':''),state.online.some(v=>!v)?'warn':false);
+  refresh();
+}
+// Torque ON first holds the measured physical pose. Only after torque is
+// confirmed do we permit a rate-limited alignment toward the fresh Leader.
+async function enableTorque(){
+  if(!state.servo||state.torque||state.torqueBusy||state.torqueUnknown||state.calMode||state.connecting||!physicalReady())return;
+  if(!state.hardwareLimitsReady){log('Follower EEPROM limit readback is still pending; torque ON deferred.','warn');return;}
+  const missing=6-validCount();
+  const message=missing
+    ? `[UNRESTRICTED MOTORS]\n${missing} uncalibrated axes may have unsafe mechanical travel.\nSupport the arm and clear the workspace. Enable Follower torque?`
+    : 'Verify the calibrated joint ranges, support the arm and clear the workspace. Enable Follower torque?';
+  const armWarning=state.controlMode==='leader'?'\n\nLEADER CONTROL: enabling torque also authorizes automatic SLOW pose alignment when fresh Leader readings become available, even if readings arrive later. The arm may move substantially (up to 1000 ticks of initial discrepancy). Keep the workspace clear and the emergency stop ready.':'';
+  if(!confirm(message+armWarning))return;
+  state.torqueBusy=true;refresh();
+  let torqueWriteAttempted=false;
+  try{
+    const values=await state.servo.readPositionsSync(FOLLOWER_SYNC_TIMEOUT_MS,readbackDiagnostics('follower',state.readStats));
+    if(values.some(v=>!Number.isFinite(v)))throw Error('Could not read six Follower present positions');
+    for(let i=0;i<6;i++){
+      const c=effectiveCal(i),hw=state.hardwareLimits[i],raw=values[i];
+      if(hw?.valid&&(raw<hw.min-12||raw>hw.max+12))
+        throw Error(`ID${i+1} present=${raw} outside EEPROM ${hw.min}..${hw.max}; manual recovery required before Torque ON`);
+      if(!state.debugMode && (!c||raw<c.min||raw>c.max))
+        throw Error(`Motor ${i+1} is outside its calibrated range: current ${raw}, MIN ${c.min}, MAX ${c.max}. Torque ON canceled.`);
+      if(state.debugMode && c && (raw<c.min||raw>c.max))
+        logOp('follower','TORQUE_RANGE','WARN',`ID=${i+1} PRESENT=${raw} SOFTWARE=${c.min}..${c.max} EEPROM=${hw?.valid?hw.min+'..'+hw.max:'unverified'}`,'warn');
+    }
+    state.current=[...values];state.followerUpdatedAt=performance.now();setTargetFromCurrent();
+    // Determine (but do not command) the initial alignment path.
+    let alignmentGoals=null;
+    if(state.controlMode==='leader' && leaderState.connected && leRobotFile.leader && leRobotFile.follower &&
+       performance.now()-leaderState.updatedAt<LEADER_STALE_MS && leaderState.current.every(Number.isFinite)){
+      alignmentGoals=teleopGoals(leaderState.current);
+      const diagnostics=poseDiagnostics(leaderState.current,values);
+      if(diagnostics.largest>ALIGN_CONFIRM_THRESHOLD_TICKS){
+        reportPoseMismatch(diagnostics);
+        if(!confirm(`Leader/Follower differ by up to ${diagnostics.largest} ticks.\nAfter torque ON, Follower will ALIGN SLOWLY (up to the smaller of your speed setting and 400 tick/s; never more than 8 ticks per command pass) toward Leader.\nThis can cause mechanical collision. Make sure the workspace is clear, support the arm and keep an emergency stop ready. Continue?`)){
+          log('Torque ON canceled by user before any torque command.','warn');return;
+        }
+      }
+    }
+    // Hold measured position; clip only tiny out-of-EEPROM drift <=12 ticks.
+    // Larger hardware-limit excursions have already been rejected above.
+    const holdGoals=values.map((v,i)=>{
+      const hw=state.hardwareLimits[i];
+      return hw?.valid?Math.round(clamp(v,hw.min,hw.max)):Math.round(v);
+    });
+    if(holdGoals.some((v,i)=>v!==values[i]))
+      logOp('follower','TORQUE_HOLD','CLIPPED',holdGoals.map((v,i)=>v!==values[i]?`ID${i+1}:${values[i]}->${v}`:null).filter(Boolean).join(' '),'warn');
+    logOp('follower','TORQUE_ON','REQUESTED','hold present positions');
+    await state.servo.setTargetsSync(holdGoals);
+    torqueWriteAttempted=true;
+    await state.servo.torqueAll(true);
+    logOp('follower','TORQUE_ON','COMMAND_SENT','IDs=1,2,3,4,5,6 (register verification pending)');
+    const torqueReads=[];
+    for(let id=1;id<=6;id++){
+      try{torqueReads.push(await state.servo.readRegister(id,40,1));}
+      catch(e){torqueReads.push(null);logOp('follower','TORQUE_VERIFY','NO_REPLY',`ID=${id} ${e.message}`,'warn');}
+    }
+    logOp('follower','TORQUE_VERIFY',torqueReads.every(v=>v===1)?'CONFIRMED':'UNVERIFIED',`READBACK=${torqueReads.map(v=>v===null?'?':v).join(',')}`,torqueReads.every(v=>v===1)?false:'warn');
+    state.torque=true;state.torqueUnknown=false;
+    state.sent=[...holdGoals];state.targets=[...holdGoals];state.motionLastAt=0;
+    log('Follower torque ON (holding present positions)');
+    state.blockedAxes=Array(6).fill(false);state.requested=[...values];
+    state.alignmentAuthorized=state.controlMode==='leader';
+    state.awaitingLeader=state.controlMode==='leader';
+    state.followPhase=state.awaitingLeader?'WAIT_LEADER':'IDLE';
+    state.alignmentLastGoal=null;
+    if(state.awaitingLeader){
+      const fresh=leaderState.connected && performance.now()-leaderState.updatedAt<LEADER_STALE_MS;
+      state.waitingReason=fresh?'Validating current Leader/Follower poses':'Waiting for a fresh Leader SYNC READ';
+      $('teleopStatus').textContent='WAIT_LEADER: holding Follower pose; '+state.waitingReason+'.';
+      log('WAIT_LEADER: Follower holds its measured pose; guarded alignment will begin automatically when fresh Leader and Follower data are available.');
+    }
+  }catch(e){
+    state.torque=false;state.torqueUnknown=torqueWriteAttempted;
+    state.awaitingLeader=false;state.alignmentAuthorized=false;state.followPhase='IDLE';
+    logOp('follower','TORQUE_ON','FAILED',e.message,true);
+    log('Failed to enable Follower torque: '+e.message+(torqueWriteAttempted?'; physical state may be unknown.':''),true);
+  }finally{state.torqueBusy=false;refresh();}
+}
+$('torqueBtn').onclick=async()=>{if(state.torque||state.torqueUnknown)await stopTorque();else await enableTorque();};
+async function stopTorque(){
+  if(leaderState.teleop)stopTeleop('Follower torque OFF');
+  if(state.aligning)cancelAlignment('Follower torque OFF');
+  state.awaitingLeader=false;state.alignmentAuthorized=false;state.followPhase='IDLE';
+  if(!state.servo||state.torqueBusy)return;
+  state.torqueBusy=true;state.torque=false;state.rangeRevision++;state.motionLastAt=0;
+  state.targets=[...state.sent];refresh();
+  try{
+    logOp('follower','TORQUE_OFF','REQUESTED','IDs=1..6');
+    await state.servo.torqueAll(false);
+    logOp('follower','TORQUE_OFF','COMMAND_SENT','IDs=1..6');
+    state.torqueUnknown=false;
+    log('Follower torque OFF; support the arm against falling.','warn');
+  }catch(e){
+    state.torqueUnknown=true;
+    logOp('follower','TORQUE_OFF','FAILED',e.message,true);
+    log('Torque OFF failed; actual hardware state is UNKNOWN: '+e.message,true);
+  }finally{state.torqueBusy=false;refresh();}
+}
+$('midpointBtn').onclick=()=>{
+  if(!canManualMotion())return;
+  if(!confirm('Move all Follower joints to their calibrated midpoints? Check for obstacles.'))return;
+  for(let i=0;i<6;i++){
+    const c=effectiveCal(i);
+    if(c.valid)state.targets[i]=c.center;
+  }
+  viewer.setPose(state.targets,viewCals());
+  refresh();
+};
+async function toggleCalibration(){
+  const arm=activeArm();
+  if(!arm.connected||leaderState.teleop)return;
+  if(arm.calMode){arm.calMode=false;arm.record=false;log(`${calibrationRole} calibration stopped`);refresh();return;}
+  const warning=calibrationRole==='leader'
+    ? 'Release all Leader joint torques for manual calibration? Support the arm before continuing.'
+    : 'Release all Follower joint torques for manual calibration? Support the arm before continuing.';
+  if(!confirm(warning))return;
+  try{
+    if(calibrationRole==='leader'){
+      await arm.servo.torqueAll(false);
+    }else {
+      await stopTorque();
+      if(state.torqueUnknown)throw Error('Cannot start Follower calibration: torque OFF could not be confirmed.');
+    }
+    arm.calMode=true;arm.record=false;arm.measure=Array.from({length:6},()=>({min:Infinity,max:-Infinity}));
+    log(`${calibrationRole} calibration started; move supported joints slowly`);refresh();
+  }catch(e){log('Calibration start failed: '+e.message,true);}
+}
+$('startCalBtn').onclick=toggleCalibration;
+$('sampleBtn').onclick=()=>{
+  const arm=activeArm();if(!arm.calMode)return;
+  arm.record=true;arm.measure=Array.from({length:6},(_,i)=>({min:arm.current[i]??Infinity,max:arm.current[i]??-Infinity}));
+  log(`${calibrationRole} range sampling started`);refresh();
+};
+$('stopSampleBtn').onclick=()=>{
+  const arm=activeArm();if(!arm.calMode)return;
+  arm.record=false;
+  for(let i=0;i<6;i++){
+    const m=arm.measure[i];
+    if(Number.isFinite(m.min)&&Number.isFinite(m.max)&&m.max-m.min>=48){
+      const name=JOINT_NAMES[i][0];
+      if(calibrationRole==='leader'){
+        const c=leRobotFile.leader[name];c.range_min=Math.round(m.min);c.range_max=Math.round(m.max);
+      }else{
+        state.cal[i]={...state.cal[i],min:Math.round(m.min),center:Math.round((m.min+m.max)/2),max:Math.round(m.max),valid:false};
+      }
+    }
+  }
+  log(`${calibrationRole} sampling stopped; review limits and apply each joint`);
+  renderCalEditor();
+};
+for(const btn of document.querySelectorAll('.take-btn'))btn.onclick=()=>{
+  if(!isCalibrating())return;
+  const raw=activeArm().current[state.selected];if(raw===null){log('Current position unavailable',true);return;}
+  const field=btn.dataset.capture==='min'?'calMin':'calMax';
+  $(field).value=Math.round(raw);
+  $('calCenter').value=Math.round((Number($('calMin').value)+Number($('calMax').value))/2);
+  $('calInfo').textContent=`Captured ${field==='calMin'?'MIN':'MAX'} = ${Math.round(raw)}; not saved yet`;
+};
+$('applyCalBtn').onclick=()=>{
+  if(leaderState.teleop||(calibrationRole==='follower'&&state.torque))return;
+  const min=+$('calMin').value,max=+$('calMax').value,center=Math.round((min+max)/2);
+  const c={min,center,max,invert:$('calInvert').checked,valid:true};
+  if(!validCalibration(c)){$('calInfo').textContent='Error: bounds must be 0..4095, with at least 48 ticks between MIN and MAX';$('calInfo').classList.add('error');return;}
+  const offset=Number($('calOffset').value);
+  if(!Number.isInteger(offset)||Math.abs(offset)>4095){log('Homing offset must be an integer between -4095 and +4095',true);return;}
+  const entry=leRobotFile[calibrationRole][JOINT_NAMES[state.selected][0]];
+  entry.range_min=min;entry.range_max=max;entry.drive_mode=c.invert?1:0;entry.homing_offset=offset;
+  persistLeCal(calibrationRole);
+  if(calibrationRole==='follower'){
+    state.physicalCal=leToUi(leRobotFile.follower);
+    state.cal=state.physicalCal;
+    state.targets[state.selected]=clamp(state.targets[state.selected],min,max);
+    state.sent[state.selected]=clamp(state.sent[state.selected],min,max);
+    viewer.setPose(state.targets,viewCals());
+  }else{
+    leaderViewer.setPose(leaderState.current,leToUi(leRobotFile.leader));
+  }
+  log(`${calibrationRole} ID ${state.selected+1} calibration saved: ${min} / ${center} / ${max}`);
+  renderCalEditor();
+};
+// LeRobot JSON import/export uses exactly 6 named motor objects and five fields.
+function cloneJson(x){return JSON.parse(JSON.stringify(x));}
+function validateLeRobotCal(obj){
+  if(!obj||typeof obj!=='object'||Array.isArray(obj)||Object.keys(obj).length!==6)throw Error('LeRobot JSON must contain six motor calibrations');
+  const out={};
+  JOINT_NAMES.forEach(([name],i)=>{
+    const c=obj[name];
+    if(!c||!Number.isInteger(c.id)||c.id!==i+1||![0,1].includes(c.drive_mode)||
+       !Number.isInteger(c.homing_offset)||Math.abs(c.homing_offset)>4095||
+       !Number.isInteger(c.range_min)||!Number.isInteger(c.range_max)||
+       c.range_min<0||c.range_max>4095||c.range_max-c.range_min<48||Object.keys(c).length!==5)
+      throw Error(name+'  has invalid LeRobot calibration data');
+    out[name]={id:c.id,drive_mode:c.drive_mode,homing_offset:c.homing_offset,range_min:c.range_min,range_max:c.range_max};
+  });
+  return out;
+}
+function leToUi(obj){return JOINT_NAMES.map(([name])=>{
+  const c=obj[name];return {min:c.range_min,center:Math.round((c.range_min+c.range_max)/2),max:c.range_max,invert:c.drive_mode===1,valid:true};
+});}
+const leStoreKey=role=>'lerobotwebapp.webconsole.lerobot.'+role+'.v1';
+function persistLeCal(role){try{storage.setItem(leStoreKey(role),JSON.stringify(leRobotFile[role]));}catch{}}
+function applyLeCal(role,obj,persist=false){
+  const cal=validateLeRobotCal(obj);
+  if(role==='follower'){
+    leRobotFile.follower=cal;
+    state.physicalCal=leToUi(cal);
+    state.cal=state.physicalCal;
+    if(!state.connected){state.targets=state.cal.map(c=>c.center);state.sent=[...state.targets];}
+    renderCalEditor();viewer.setPose(state.targets,viewCals());
+  }else{
+    leRobotFile.leader=cal;leaderState.current=leaderState.connected?leaderState.current:leToUi(cal).map(c=>c.center);
+    leaderViewer.setPose(leaderState.current,leToUi(cal));
+  }
+  if(persist)persistLeCal(role);
+  if(role===calibrationRole)renderCalEditor();
+}
+async function fetchInitialCal(role){
+  const name='my_awesome_'+role+'_arm.json';
+  let data=null,origin='embedded defaults';
+  if(location.protocol==='http:'||location.protocol==='https:'){
+    try{const r=await fetch('./'+name,{cache:'no-store'});if(r.ok){data=await r.json();origin='bundled '+name;}}catch{}
+  }
+  if(!data)data=JSON.parse($(role+'DefaultCal').textContent);
+  validateLeRobotCal(data);
+  let stored=null;
+  try{const s=storage.getItem(leStoreKey(role));if(s)stored=validateLeRobotCal(JSON.parse(s));}catch{}
+  applyLeCal(role,stored||data,false);
+  log(role+' calibration loaded: '+(stored?'stored LeRobot JSON':origin));
+}
+function downloadLeCal(role){
+  if(!leRobotFile[role])return;
+  const json=JSON.stringify(leRobotFile[role],null,4)+'\n';
+  const blob=new Blob([json],{type:'application/json'}),url=URL.createObjectURL(blob),a=document.createElement('a');
+  a.href=url;a.download='my_awesome_'+role+'_arm.json';a.click();setTimeout(()=>URL.revokeObjectURL(url),1500);
+  log(role+' LeRobot JSON exported');
+}
+async function importLeCal(role,file){
+  if(!file)return;
+  if(state.torque && role==='follower')throw Error('Cannot import Follower calibration while torque is ON');
+  if(leaderState.teleop)throw Error('Stop Leader Control before importing calibration.');
+  const parsed=validateLeRobotCal(JSON.parse(await file.text()));
+  if(!confirm(role+' calibration will be imported. Verify motor IDs and EEPROM state before proceeding.'))return;
+  applyLeCal(role,parsed,true);
+  log(role+' LeRobot JSON imported');
+}
+$('exportCalBtn').onclick=()=>downloadLeCal(calibrationRole);
+$('importCalBtn').onclick=()=>$('importCalFile').click();
+$('importCalFile').onchange=async e=>{try{await importLeCal(calibrationRole,e.target.files?.[0]);}catch(err){log(err.message,true);}finally{e.target.value='';}};
+
+// One broadcast SYNC WRITE (0x83) replaces six sequential position writes.
+// The serial bus still serializes reads and writes; the next 20ms tick always
+// uses the newest six-axis target and never accumulates a command backlog.
+// Diagnose apparent ID6 non-following without changing EEPROM or torque.
+// A SYNC WRITE broadcast has no per-motor acknowledgment: a sent packet does
+// not prove that the servo accepted the goal or was able to move to it.
+function analyzeGripperDiagnostics({softwareMin,softwareMax,servoMin,servoMax,requestedGoal,presentGoal,presentPosition,torque,mode,leaderMappedGoal=null}){
+  const warnings=[];
+  if(softwareMin!==servoMin||softwareMax!==servoMax)
+    warnings.push(`LeRobot/software range ${softwareMin}..${softwareMax} does not match ID6 EEPROM range ${servoMin}..${servoMax}`);
+  if(requestedGoal<servoMin||requestedGoal>servoMax)
+    warnings.push(`Requested ID6 position ${requestedGoal} is outside servo EEPROM position limits ${servoMin}..${servoMax}`);
+  if(Number.isFinite(leaderMappedGoal)&&(leaderMappedGoal<servoMin||leaderMappedGoal>servoMax))
+    warnings.push(`Leader-mapped ID6 target ${leaderMappedGoal} is outside servo EEPROM limits ${servoMin}..${servoMax}; this may prevent alignment and following`);
+  if(presentGoal!==requestedGoal)
+    warnings.push(`ID6 Goal_Position readback ${presentGoal} differs from last software goal ${requestedGoal}`);
+  if(torque!==1)warnings.push(`ID6 physical Torque_Enable=${torque}, expected 1 for movement`);
+  if(mode!==0)warnings.push(`ID6 operating mode=${mode}; position mode is 0`);
+  if(Math.abs(presentPosition-requestedGoal)>=60)
+    warnings.push(`ID6 measured ${presentPosition} differs from requested ${requestedGoal} by ${Math.abs(presentPosition-requestedGoal)} ticks`);
+  return warnings;
+}
+function nextDirectGoal(target,sent,calibration){
+  if(!Number.isFinite(target)||!Number.isFinite(sent))return null;
+  const goal=Math.round(target);
+  if(goal===Math.round(sent)||goal<calibration.min||goal>calibration.max)return null;
+  return goal;
+}
+function stepToward(goal,position,maxStep=ALIGN_MAX_STEP_TICKS){
+  return Math.round(position+clamp(goal-position,-maxStep,maxStep));
+}
+// Pure speed limiter shared by alignment and normal Leader following.
+// Time is measured between command processing passes, capped to 40ms so a
+// delayed browser timer cannot send a large catch-up motion. Alignment is
+// additionally capped at eight ticks per sent command for safety.
+function speedLimitedStep(goal,position,speedTicksPerSecond,elapsedMs,alignment=false){
+  if(![goal,position,speedTicksPerSecond,elapsedMs].every(Number.isFinite))throw Error('Invalid speed-limiter input');
+  const dt=clamp(elapsedMs,0,40);
+  let maxTicks=Math.floor(speedTicksPerSecond*dt/1000+1e-9);
+  if(alignment)maxTicks=Math.min(maxTicks,ALIGN_MAX_STEP_TICKS);
+  return Math.round(position+clamp(goal-position,-maxTicks,maxTicks));
+}
+// Per-axis jerk-limited S-curve tracking for Leader Control. Internal motion
+// state is floating-point position, velocity and acceleration. A critically
+// damped position/velocity controller computes acceleration demand; acceleration
+// itself is slew-limited by jerk. This avoids bang-bang acceleration switches
+// and reduces the ringing seen with small payloads. The controller bandwidth
+// is bounded by acceleration AND jerk over remaining distance; time is capped
+// to 40ms to prevent browser background-tab catch-up leaps.
+// Limits apply to the internal trajectory; rounding to integer servo ticks,
+// EEPROM clipping and non-real-time USB cannot guarantee physical jerk bounds.
+function trajectoryStep(goal,profile,maxSpeed,maxAcceleration,elapsedMs,alignment=false,maxJerk=FOLLOW_JERK_DEFAULT){
+  if(![goal,maxSpeed,maxAcceleration,maxJerk].every(Number.isFinite)||maxSpeed<=0||maxAcceleration<=0||maxJerk<=0)
+    throw Error('Invalid trajectory constraints');
+  const dt=clamp(elapsedMs,0,40)/1000;
+  const current=profile&&Number.isFinite(profile.position)&&Number.isFinite(profile.velocity)
+    ?{position:profile.position,velocity:profile.velocity,acceleration:Number.isFinite(profile.acceleration)?profile.acceleration:0}
+    :{position:goal,velocity:0,acceleration:0};
+  if(dt===0)return {...current,command:Math.round(current.position)};
+  const error=goal-current.position;
+  // Snap only inside a sub-tick, near-rest capture region; never snap while
+  // traveling at appreciable speed (which would create a large command jump).
+  if(Math.abs(error)<.4 && Math.abs(current.velocity)<.5 && Math.abs(current.acceleration)<Math.max(8,maxJerk*dt))
+    return {position:goal,velocity:0,acceleration:0,command:Math.round(goal)};
+  const scale=Math.max(Math.abs(error),30); // 30-tick floor avoids high-frequency oscillation
+  const omega=Math.min(4,Math.sqrt(maxAcceleration/scale),0.7*Math.cbrt(maxJerk/scale));
+  const desiredAcceleration=clamp(omega*omega*error-2*omega*current.velocity,-maxAcceleration,maxAcceleration);
+  let acceleration=current.acceleration+clamp(desiredAcceleration-current.acceleration,-maxJerk*dt,maxJerk*dt);
+  let velocity=current.velocity+(current.acceleration+acceleration)*.5*dt;
+  // A reduced slider speed requires gradual braking, not a velocity reset.
+  // Do not accelerate farther beyond a newly lowered speed limit.
+  if(Math.abs(current.velocity)>maxSpeed){
+    if(Math.abs(velocity)>Math.abs(current.velocity))velocity=current.velocity;
+  }else velocity=clamp(velocity,-maxSpeed,maxSpeed);
+  let position=current.position+(current.velocity+velocity)*.5*dt;
+  // ALIGNING retains its hard maximum 8 ticks per command pass. This is a
+  // safety cap which can take precedence over continuity during slow polling.
+  if(alignment){
+    const change=clamp(position-current.position,-ALIGN_MAX_STEP_TICKS,ALIGN_MAX_STEP_TICKS);
+    if(change!==position-current.position){
+      position=current.position+change;
+      velocity=change/dt;
+      acceleration=clamp((velocity-current.velocity)/dt,-maxAcceleration,maxAcceleration);
+    }
+  }
+  return {position,velocity,acceleration,command:Math.round(position)};
+}
+function resetTrajectory(){
+  state.trajectory=state.sent.map(v=>({position:v,velocity:0,acceleration:0}));
+}
+function cancelAlignment(reason){
+  if(!state.aligning)return;
+  state.aligning=false;state.alignmentLastGoal=null;state.motionLastAt=0;resetTrajectory();
+  state.awaitingLeader=false;state.alignmentAuthorized=false;state.followPhase='BLOCKED';
+  state.targets=[...state.sent];state.rangeRevision++;
+  log('Guarded alignment stopped: '+reason,'warn');
+  $('teleopStatus').textContent='Alignment stopped: '+reason+'; Follower remains torque ON.';
+}
+// Suspend, rather than discard, an explicitly authorized alignment on a
+// temporary telemetry outage. The last commanded position remains held.
+function suspendAlignment(reason){
+  if(!state.aligning)return;
+  state.aligning=false;state.awaitingLeader=true;state.followPhase='WAIT_LEADER';state.motionLastAt=0;resetTrajectory();
+  state.alignmentLastGoal=null;state.targets=[...state.sent];state.rangeRevision++;
+  state.waitingReason=reason;
+  log('WAIT_LEADER: guarded alignment paused; '+reason+'. Holding Follower pose.','warn');
+  $('teleopStatus').textContent='WAIT_LEADER: '+reason+'; Follower held.';
+  refresh();
+}
+function alignmentTick(){
+  if(!state.aligning)return;
+  if(state.controlMode!=='leader'||!state.connected||!state.torque||!leaderState.connected){cancelAlignment('Leader connection or Follower torque lost');return;}
+  if(performance.now()-leaderState.updatedAt>LEADER_STALE_MS){suspendAlignment('Leader measurement stale');return;}
+  const goals=teleopGoals(leaderState.current);
+  if(state.alignmentLastGoal&&goals.some((v,i)=>!state.blockedAxes[i]&&Math.abs(v-state.alignmentLastGoal[i])>900)){
+    cancelAlignment('Leader position jumped more than 900 ticks');return;
+  }
+  state.alignmentLastGoal=[...goals];
+  if(!state.current.every(Number.isFinite)||performance.now()-state.followerUpdatedAt>400){
+    suspendAlignment('Follower measurement stale');return;
+  }
+  // Do not build pending motion error if a joint cannot follow. Surface the
+  // exact joint and measured error after a sustained stall; never silently
+  // remain in 400 tick/s ALIGNING forever.
+  let stalledAxis=-1;
+  const nowMs=performance.now();
+  state.targets=goals.map((goal,i)=>{
+    if(state.blockedAxes[i])return state.sent[i];
+    const error=Math.abs(state.sent[i]-state.current[i]);
+    if(error>ALIGN_MAX_TRACKING_ERROR_TICKS){
+      if(!state.alignmentStallSince[i])state.alignmentStallSince[i]=nowMs;
+      if(nowMs-state.alignmentStallSince[i]>1200)stalledAxis=i;
+      return state.sent[i];
+    }
+    state.alignmentStallSince[i]=0;state.alignmentStallWarned[i]=false;
+    return goal;
+  });
+  if(stalledAxis>=0){
+    const i=stalledAxis,hw=state.hardwareLimits[i];
+    const detail=`ID${i+1} ${JOINT_NAMES[i][0]} tracking stall: sent=${state.sent[i]}, measured=${state.current[i]}, error=${Math.abs(state.sent[i]-state.current[i])} tick (>60 for >1.2s), Leader goal=${goals[i]}, EEPROM=${hw?.valid?hw.min+'..'+hw.max:'unverified'}`;
+    log(detail,'warn');
+    if(state.debugMode){
+      state.blockedAxes[i]=true;
+      state.targets[i]=state.sent[i];
+      logOp('follower','AXIS_ISOLATED','HELD',`ID=${i+1} REASON=STALL; other axes may continue`,'warn');
+      if(state.blockedAxes.every(Boolean)){cancelAlignment('All axes blocked');refresh();return;}
+    }else{cancelAlignment(detail);refresh();return;}
+    refresh();
+  }
+  // Completion uses actual fresh Follower readback, not just commanded goals.
+  if(state.current.every(Number.isFinite)&&performance.now()-state.followerUpdatedAt<400){
+    const active=goals.map((_,i)=>i).filter(i=>!state.blockedAxes[i]);
+    if(!active.length){cancelAlignment('No healthy axes remain');return;}
+    const maxError=Math.max(...active.map(i=>Math.abs(goals[i]-state.current[i])));
+    const commandedError=Math.max(...active.map(i=>Math.abs(goals[i]-state.sent[i])));
+    if(maxError<=ALIGN_COMPLETE_TICKS&&commandedError<=ALIGN_COMPLETE_TICKS){
+      state.aligning=false;state.alignmentLastGoal=null;state.awaitingLeader=false;state.followPhase='FOLLOWING';
+      leaderState.teleop=true;
+      state.targets=goals.map((v,i)=>state.blockedAxes[i]?state.sent[i]:v);
+      state.motionLastAt=0;
+      log('Guarded alignment complete; Leader following active (measured max delta '+maxError+' ticks; speed limit '+state.followMaxSpeed+' tick/s; participating '+(6-state.blockedAxes.filter(Boolean).length)+'/6 axes).');
+      $('teleopStatus').textContent=`FOLLOWING ACTIVE: Follower positions verified; speed limit ${state.followMaxSpeed} tick/s.`;
+      refresh();
+    }
+  }
+}
+async function motionTick(){
+  if(state.moving||state.servoMotionReadBusy)return;
+  if(!canMotion()){state.motionLastAt=0;state.commandRate=0;return;}
+  state.moving=true;
+  const nowMs=performance.now();
+  const elapsedMs=state.motionLastAt ? Math.min(40,Math.max(0,nowMs-state.motionLastAt)) : MOTION_PERIOD_MS;
+  state.motionLastAt=nowMs;
+  const revision=state.rangeRevision;
+  try{
+    if(state.aligning)alignmentTick();
+    if(!canMotion()||revision!==state.rangeRevision)return;
+    const leaderControlled=state.aligning||leaderState.teleop;
+    const speed=state.aligning?Math.min(state.followMaxSpeed,ALIGN_SAFE_MAX_SPEED):state.followMaxSpeed;
+    const accel=state.aligning?Math.min(state.followMaxAcceleration,ALIGN_SAFE_MAX_ACCEL):state.followMaxAcceleration;
+    const jerk=state.aligning?Math.min(state.followMaxJerk,ALIGN_SAFE_MAX_JERK):state.followMaxJerk;
+    const goals=[...state.sent];
+    const nextProfiles=state.trajectory.map((p,i)=>p && Number.isFinite(p.position) && Number.isFinite(p.velocity)
+      ? {...p,acceleration:Number.isFinite(p.acceleration)?p.acceleration:0}:{position:state.sent[i],velocity:0,acceleration:0});
+    for(let i=0;i<6;i++){
+      const cal=effectiveCal(i);
+      if(state.blockedAxes[i]&&leaderControlled)continue; // isolated in debug mode
+      if(!leaderControlled&&!cal.valid)continue;
+      let candidate;
+      if(leaderControlled){
+        // Profile must start at actual last TX on external/manual/EEPROM changes.
+        if(Math.abs(nextProfiles[i].position-state.sent[i])>1.5)nextProfiles[i]={position:state.sent[i],velocity:0,acceleration:0};
+        nextProfiles[i]=trajectoryStep(state.targets[i],nextProfiles[i],speed,accel,elapsedMs,state.aligning,jerk);
+        candidate=nextProfiles[i].command;
+      }else{
+        candidate=state.targets[i];
+        nextProfiles[i]={position:state.sent[i],velocity:0,acceleration:0};
+      }
+      const finalGoal=enforceSentGoal(i,candidate);
+      if(leaderControlled && candidate!==finalGoal)nextProfiles[i]={position:finalGoal,velocity:0,acceleration:0};
+      if(finalGoal!==Math.round(state.sent[i]))goals[i]=finalGoal;
+    }
+    if(goals.some((g,i)=>g!==state.sent[i])){
+      const delta=Math.max(...goals.map((g,i)=>Math.abs(g-state.sent[i])));
+      const motionCommands=leaderControlled&&state.useServoInterpolation
+        ?servoMotionCommands(goals,nextProfiles,accel,state.servoSpeedMargin):null;
+      await state.servo.setTargetsSync(goals,motionCommands);
+      state.commandRate=Math.round(1000*delta/Math.max(elapsedMs,1));
+      state.sent=goals;
+      state.trajectory=nextProfiles;
+      state.lastServoMotionCommands=motionCommands;
+      traceTxRx('follower','SYNC_WRITE',`IDS=1..6 TX_ONLY=${goals.join(',')} RATE=${Math.round(state.commandRate)}tick/s`+
+        (motionCommands?` FORMAT=ACC7 SPEED=${motionCommands.map(c=>c.speed).join(',')} ACC=${motionCommands[0].acceleration} TIME=0`:' FORMAT=POS2'));
+    }else{state.commandRate=0;state.trajectory=nextProfiles;}
+  }catch(e){
+    if(state.aligning)cancelAlignment('SYNC WRITE error: '+e.message);
+    if(leaderState.teleop)stopTeleop('SYNC WRITE error: '+e.message);
+    state.torque=false;state.torqueUnknown=true;
+    log('Follower SYNC WRITE failed; physical state is UNKNOWN: '+e.message,true);refresh();
+  }finally{state.moving=false;}
+}
+// Fast Follower readback: 80 ms while torque OFF, 100 ms while ON.
+// A single 6-motor SYNC READ updates the measured 3D pose. A failed read
+// does not replace actual positions with stale commanded goals and does not
+// turn a read timeout into a motor-motion failure.
+async function pollTick(){
+  if(state.polling||state.servoMotionReadBusy||!state.connected||!state.servo||state.torqueBusy||state.connecting)return;
+  if(state.moving)return; // motion has priority for starting a bus request
+  state.polling=true;state.pollAt=performance.now();
+  try{
+    const measured=await state.servo.readPositionsSync(FOLLOWER_SYNC_TIMEOUT_MS,readbackDiagnostics('follower',state.readStats));
+    const measuredAt=performance.now();
+    if(state.followerUpdatedAt && state.current.every(Number.isFinite)){
+      const dt=measuredAt-state.followerUpdatedAt;
+      state.measuredRate=dt>0?1000*Math.max(...measured.map((v,i)=>Math.abs(v-state.current[i])))/dt:null;
+    }
+    state.current=measured;state.followerUpdatedAt=measuredAt;
+    if(state.followerReadFailures>=3)logOp('follower','READ_HEALTH','RECOVERED',`AFTER=${state.followerReadFailures} failures`);
+    state.followerReadFailures=0;
+    traceTxRx('follower','SYNC_READ',`IDS=1..6 OK ALL=6 REPAIRED=${state.readStats.recovered}`);
+    if(state.record){measured.forEach((raw,i)=>{const m=state.measure[i];m.min=Math.min(m.min,raw);m.max=Math.max(m.max,raw);});}
+    updateLive();
+    viewer.setPose(measured,viewCals());
+  }catch(e){
+    if(e.partialPositions){
+      e.partialPositions.forEach((raw,i)=>{if(Number.isFinite(raw))state.current[i]=raw;});
+      viewer.setPose(state.current.map((v,i)=>Number.isFinite(v)?v:state.sent[i]),viewCals());
+    }
+    state.followerReadFailures++;state.readStats.failed++;
+    if(state.followerReadFailures===3)logOp('follower','READ_HEALTH','STALE','3 consecutive full-six-axis failures; no new automatic motion on incomplete telemetry','warn');
+    if(state.followerReadFailures===1||state.followerReadFailures%10===0)
+      log('Follower SYNC READ failed (#'+state.followerReadFailures+'): '+e.message,'warn');
+  }finally{state.polling=false;}
+}
+
+// Following matches LeRobot normalized position: range_min/range_max define
+// the mapping; homing_offset is already incorporated in servo Present_Position.
+function leaderToFollowerRaw(leaderRaw,leaderCal,followerCal){
+  if(!Number.isFinite(leaderRaw))throw Error('Invalid Leader position');
+  let u=clamp((leaderRaw-leaderCal.range_min)/(leaderCal.range_max-leaderCal.range_min),0,1);
+  if(leaderCal.drive_mode===1)u=1-u;
+  if(followerCal.drive_mode===1)u=1-u;
+  return clamp(Math.round(followerCal.range_min+u*(followerCal.range_max-followerCal.range_min)),followerCal.range_min,followerCal.range_max);
+}
+function teleopGoals(positions){
+  if(!leRobotFile.leader||!leRobotFile.follower)throw Error('Leader and Follower calibration JSON must be loaded');
+  return JOINT_NAMES.map(([name],i)=>{
+    const raw=leaderToFollowerRaw(positions[i],leRobotFile.leader[name],leRobotFile.follower[name]);
+    const cal=effectiveCal(i);
+    const requested=commandToRaw(rawToCommand(raw,cal),cal);
+    return reachableFollowerGoal(i,requested,'Leader');
+  });
+}
+function renderLeaderUI(){
+  $('leaderBaud').disabled=leaderState.connected||leaderState.connecting;
+  $('selectLeaderPortBtn').disabled=leaderState.connected||leaderState.connecting;
+  $('leaderConnectBtn').disabled=leaderState.connecting||(!leaderState.connected&&!leaderState.usbPort);
+  $('leaderConnectBtn').textContent=leaderState.connecting?'Connecting…':leaderState.connected?'Disconnect Leader':'Reconnect Leader';
+  $('leaderConnectStatus').textContent=leaderState.connecting?'Connecting…':leaderState.connected?'Connected':'Disconnected';
+  $('leaderConnectStatus').className='port-connection-status'+(leaderState.connected?' online':'');
+  $('leaderOverlayState').textContent=leaderState.connected?(leaderState.teleop?'FOLLOWING':'SYNC READ'):'OFFLINE';
+  if(state.awaitingLeader && state.controlMode==='leader' && state.torque){
+    $('teleopStatus').textContent='WAIT_LEADER: '+(state.waitingReason||'awaiting valid six-axis measurements')+'; Follower held.';
+  }else if(!leaderState.teleop && !state.aligning){
+    if(state.controlMode!=='leader')$('teleopStatus').textContent='Manual mode: Leader following paused.';
+    else if(!leaderState.connected||!state.connected)$('teleopStatus').textContent='Waiting for both USB connections.';
+    else if(!state.torque)$('teleopStatus').textContent='Enable Follower torque to allow automatic following.';
+    else if(!leaderState.updatedAt)$('teleopStatus').textContent='Waiting for Leader SYNC READ.';
+  }
+}
+$('leaderBaud').value=storage.getItem('lerobotwebapp.leader.baud')||'1000000';
+$('leaderBaud').onchange=()=>storage.setItem('lerobotwebapp.leader.baud',$('leaderBaud').value);
+$('leaderResetCameraBtn').onclick=()=>leaderViewer.reset();
+$('leaderZoomInBtn').onclick=()=>leaderViewer.distance=clamp(leaderViewer.distance*.83,.28,1.6);
+$('leaderZoomOutBtn').onclick=()=>leaderViewer.distance=clamp(leaderViewer.distance*1.2,.28,1.6);
+
+const INITIAL_POSE_LIMIT_TICKS=150;
+const LARGE_POSE_DIFFERENCE_TICKS=1000;
+const LEADER_STALE_MS=750;
+function stopTeleop(reason='Condition changed'){
+  if(!leaderState.teleop)return;
+  leaderState.teleop=false;state.targets=[...state.sent];state.rangeRevision++;state.motionLastAt=0;resetTrajectory();
+  if(reason.includes('stale') && state.alignmentAuthorized && state.connected && state.torque && state.controlMode==='leader'){
+    state.awaitingLeader=true;state.followPhase='WAIT_LEADER';state.waitingReason='Leader data stale; waiting to revalidate poses';
+  }else{state.awaitingLeader=false;state.alignmentAuthorized=false;state.followPhase='BLOCKED';}
+  $('teleopStatus').textContent='Following stopped: '+reason+' (Follower torque remains ON).';
+  log('Auto-follow stopped: '+reason,'warn');renderLeaderUI();refresh();
+}
+function poseDiagnostics(leaderPositions,followerPositions){
+  const goals=teleopGoals(leaderPositions);
+  const axes=JOINT_NAMES.map(([name,label],i)=>({
+    id:i+1,name,label,leader:leaderPositions[i],target:goals[i],present:followerPositions[i],
+    delta:Math.abs(goals[i]-followerPositions[i])
+  }));
+  return {goals,axes,largest:Math.max(...axes.map(v=>v.delta)),
+    large:axes.filter(v=>v.delta>=LARGE_POSE_DIFFERENCE_TICKS)};
+}
+function reportPoseMismatch(result){
+  const nowMs=performance.now();
+  const signature=result.axes.filter(a=>a.delta>INITIAL_POSE_LIMIT_TICKS).map(a=>a.id).join(',');
+  if(signature!==leaderState.lastDiagnosticSignature||nowMs-(leaderState.lastDiagnosticAt||0)>=5000){
+    log(`Initial pose mismatch: maximum ${result.largest} tick (allowed ${INITIAL_POSE_LIMIT_TICKS}). Following blocked.`,'warn');
+    result.axes.forEach(a=>log(`POSE ID ${a.id} ${a.name}: Leader=${a.leader}, FollowerTarget=${a.target}, FollowerPresent=${a.present}, delta=${a.delta} tick${a.delta>=LARGE_POSE_DIFFERENCE_TICKS?' [>=1000 TICK]':''}`,a.delta>=LARGE_POSE_DIFFERENCE_TICKS?'warn':false));
+    if(result.large.length)log('Large mismatch >=1000 tick at joint(s): '+result.large.map(a=>`ID ${a.id} ${a.name}`).join(', '),'warn');
+    leaderState.lastDiagnosticSignature=signature;leaderState.lastDiagnosticAt=nowMs;
+  }
+  $('teleopStatus').textContent=`WAITING FOR ALIGNMENT: max ${result.largest} tick; limit ${INITIAL_POSE_LIMIT_TICKS}. See Communication Log for per-axis diagnostics.`;
+}
+function updateTeleopTargets(){
+  if(!leaderState.teleop)return;
+  if(state.controlMode!=='leader'||!state.torque||!state.connected||!leaderState.connected||performance.now()-leaderState.updatedAt>LEADER_STALE_MS){stopTeleop('Leader stale / Follower torque OFF');return;}
+  try{
+    const goal=teleopGoals(leaderState.current);
+    if(goal.some((g,i)=>!state.blockedAxes[i]&&Math.abs(g-state.targets[i])>900)){stopTeleop('Leader target jump detected (over 900 ticks)');return;}
+    state.targets=goal.map((g,i)=>state.blockedAxes[i]?state.sent[i]:g); // Follower viewer uses measured SYNC READ, not Leader goals
+  }catch(e){stopTeleop('Position mapping failed: '+e.message);}
+}
+let autoFollowBusy=false;
+// WAIT_LEADER automatically advances once both arms have fresh measurements;
+// the operator's torque-on confirmation authorizes only bounded alignment.
+function tryBeginDeferredAlignment(){
+  if(!state.awaitingLeader||!state.alignmentAuthorized||state.aligning||leaderState.teleop)return false;
+  if(state.controlMode!=='leader'||!state.connected||!state.torque||!leaderState.connected||state.calMode||leaderState.calMode)return false;
+  if(!leRobotFile.leader||!leRobotFile.follower||!leaderState.current.every(Number.isFinite))return false;
+  if(!leaderState.updatedAt||performance.now()-leaderState.updatedAt>LEADER_STALE_MS){state.waitingReason='Waiting for a fresh Leader SYNC READ';return false;}
+  if(!state.current.every(Number.isFinite)||performance.now()-state.followerUpdatedAt>400){state.waitingReason='Waiting for a fresh Follower SYNC READ';return false;}
+  let diagnostics;
+  try{diagnostics=poseDiagnostics(leaderState.current,state.current);}
+  catch(e){log('Deferred alignment mapping failed: '+e.message,true);state.awaitingLeader=false;state.alignmentAuthorized=false;state.followPhase='BLOCKED';return false;}
+  if(diagnostics.largest>ALIGN_MAX_INITIAL_DELTA_TICKS && state.debugMode){
+    diagnostics.axes.filter(axis=>axis.delta>ALIGN_MAX_INITIAL_DELTA_TICKS).forEach(axis=>{
+      state.blockedAxes[axis.id-1]=true;
+      logOp('follower','AXIS_ISOLATED','HELD',`ID=${axis.id} DELTA=${axis.delta} >${ALIGN_MAX_INITIAL_DELTA_TICKS}; manual re-arm required for this joint`,'warn');
+    });
+    if(state.blockedAxes.every(Boolean)){
+      state.awaitingLeader=false;state.alignmentAuthorized=false;state.followPhase='BLOCKED';
+      logOp('follower','ALIGNMENT','BLOCKED','No movable axes', 'warn');return false;
+    }
+  }
+  if(diagnostics.largest>ALIGN_MAX_INITIAL_DELTA_TICKS && !state.debugMode){
+    reportPoseMismatch(diagnostics);
+    log('Guarded alignment blocked: initial difference '+diagnostics.largest+' ticks exceeds hard safety limit '+ALIGN_MAX_INITIAL_DELTA_TICKS+'; manually align the arms and re-enable Follower torque.','warn');
+    state.awaitingLeader=false;state.alignmentAuthorized=false;state.followPhase='BLOCKED';
+    $('teleopStatus').textContent='BLOCKED: initial pose difference exceeds '+ALIGN_MAX_INITIAL_DELTA_TICKS+' ticks. Re-arm after manual alignment.';
+    return false;
+  }
+  state.aligning=true;state.awaitingLeader=false;state.followPhase='ALIGNING';
+  state.alignmentStallSince=Array(6).fill(0);state.alignmentStallWarned=Array(6).fill(false);
+  state.motionLastAt=0;resetTrajectory();
+  state.alignmentLastGoal=[...diagnostics.goals];
+  state.targets=[...state.sent]; // begin from the held Follower pose
+  log('ALIGNING: fresh six-axis measurements received; max initial delta '+diagnostics.largest+' ticks; speed <= '+Math.min(state.followMaxSpeed,ALIGN_SAFE_MAX_SPEED)+' tick/s and <=8 tick per command pass.');
+  $('teleopStatus').textContent='ALIGNING: moving toward Leader pose at bounded speed.';
+  refresh();
+  return true;
+}
+async function autoFollowTick(){
+  if(autoFollowBusy||leaderState.teleop||state.aligning||state.controlMode!=='leader'||!leaderState.connected||!state.connected||!state.torque||state.torqueBusy||state.calMode||leaderState.calMode||!physicalReady())return;
+  if(state.awaitingLeader && state.alignmentAuthorized){tryBeginDeferredAlignment();return;}
+  if(state.followPhase==='BLOCKED')return; // never re-arm motion after a safety abort without a new operator action
+  if(!leRobotFile.leader||!leRobotFile.follower||!leaderState.updatedAt||performance.now()-leaderState.updatedAt>LEADER_STALE_MS)return;
+  if(!state.current.every(Number.isFinite)||performance.now()-state.followerUpdatedAt>2500)return;
+  autoFollowBusy=true;
+  try{
+    const first=poseDiagnostics(leaderState.current,state.current);
+    if(first.largest>INITIAL_POSE_LIMIT_TICKS){reportPoseMismatch(first);return;}
+    if(state.polling||state.moving)return;
+    // Before arming, confirm Follower positions again. This does not move any motor.
+    const present=await state.servo.readPositionsSync(FOLLOWER_SYNC_TIMEOUT_MS,readbackDiagnostics('follower',state.readStats));
+    if(present.some(v=>!Number.isFinite(v)))throw Error('Follower position verification failed');
+    if(!leaderState.connected||!state.connected||!state.torque||state.controlMode!=='leader'||performance.now()-leaderState.updatedAt>LEADER_STALE_MS)return;
+    const confirmed=poseDiagnostics(leaderState.current,present);
+    if(confirmed.largest>INITIAL_POSE_LIMIT_TICKS){reportPoseMismatch(confirmed);return;}
+    state.current=present;state.followerUpdatedAt=performance.now();
+    state.targets=[...present];state.sent=[...present];state.rangeRevision++;
+    leaderState.teleop=true;state.followPhase='FOLLOWING';leaderState.lastDiagnosticSignature='';state.motionLastAt=0;
+    $('teleopStatus').textContent=`FOLLOWING ACTIVE: ${state.followMaxSpeed} tick/s maximum; nominal 20ms SYNC WRITE.`;
+    log('Auto-follow started: initial max deviation '+confirmed.largest+' tick (limit '+INITIAL_POSE_LIMIT_TICKS+')');
+    refresh();updateTeleopTargets();
+  }catch(e){
+    const nowMs=performance.now();
+    if(e.message!==leaderState.lastAutoError||nowMs-(leaderState.lastAutoErrorAt||0)>4000){
+      log('Auto-follow setup failed: '+e.message,true);
+      leaderState.lastAutoError=e.message;leaderState.lastAutoErrorAt=nowMs;
+    }
+  }finally{autoFollowBusy=false;}
+}
+async function connectLeader(){
+  if(leaderState.connected||leaderState.connecting)return;
+  if(!leaderState.usbPort){log('Choose the Leader USB port first.',true);return;}
+  leaderState.connecting=true;renderLeaderUI();
+  const bus=new WebSerialBus();
+  try{
+    const baud=Number($('leaderBaud').value);
+    if(leaderState.usbPort===state.usbPort||leaderState.usbPort===state.bus?.port)throw Error('Follower and Leader cannot share the same USB port.');
+    leaderState.bus=bus;
+    logOp('leader','CONNECT','REQUESTED',`BAUD=${baud} PORT=${describePort(leaderState.usbPort)}`);
+    await bus.connect(baud,leaderState.usbPort);
+    leaderState.servo=new ServoBus(bus);
+    await leaderState.servo.torqueAll(false);
+    logOp('leader','TORQUE_OFF','COMMAND_SENT','IDs=1..6; not verified');
+    log('Leader torque OFF commands sent automatically to all 6 joints (readback not verified)');
+    const pos=await leaderState.servo.readPositionsSync(125,readbackDiagnostics('leader',leaderState.readStats));
+    leaderState.current=pos;
+    leaderState.connected=true;leaderState.updatedAt=performance.now();
+    leaderViewer.setPose(leaderState.current,leToUi(leRobotFile.leader));
+    logOp('leader','CONNECT','SUCCESS',`BAUD=${baud} PORT=${describePort(leaderState.usbPort)}`);
+    log('Leader connected: USB Serial '+baud+'bps (SYNC READ 6 axes; torque OFF)');
+  }catch(e){
+    logOp('leader','CONNECT','FAILED',e.message,true);
+    log('Leader connection failed: '+e.message,true);
+    try{await bus.close();}catch{}
+    leaderState.bus=null;leaderState.servo=null;leaderState.connected=false;
+  }finally{leaderState.connecting=false;refresh();}
+}
+async function disconnectLeader(){
+  if(leaderState.teleop)stopTeleop('Leader disconnected');
+  if(state.aligning)suspendAlignment('Leader disconnected');
+  leaderState.connected=false;leaderState.updatedAt=0;leaderState.calMode=false;leaderState.record=false;
+  try{await leaderState.bus?.close();}catch{}
+  leaderState.bus=null;leaderState.servo=null;leaderState.current=Array(6).fill(null);
+  renderLeaderUI();logOp('leader','DISCONNECT','COMPLETE');log('Leader disconnected');
+}
+$('leaderConnectBtn').onclick=async()=>leaderState.connected?disconnectLeader():connectLeader();
+async function pollLeader(){
+  if(!leaderState.connected||leaderState.busy||!leRobotFile.leader)return;
+  leaderState.busy=true;
+  try{
+    const pos=await leaderState.servo.readPositionsSync(125,readbackDiagnostics('leader',leaderState.readStats));
+    if(leaderState.readFailureCycles>=3)logOp('leader','READ_HEALTH','RECOVERED',`AFTER=${leaderState.readFailureCycles} failures`);
+    leaderState.current=pos;leaderState.updatedAt=performance.now();leaderState.readFailureCycles=0;
+    traceTxRx('leader','SYNC_READ',`IDS=1..6 OK ALL=6 REPAIRED=${leaderState.readStats.recovered}`);
+    if(leaderState.record){pos.forEach((raw,i)=>{const m=leaderState.measure[i];m.min=Math.min(m.min,raw);m.max=Math.max(m.max,raw);});updateLive();}
+    leaderViewer.setPose(pos,leToUi(leRobotFile.leader));
+    updateTeleopTargets();
+  }catch(e){
+    // A single lost SYNC READ response is tolerated; the staleness watchdog
+    // pauses alignment/following if valid readings do not resume in time.
+    if(state.aligning && performance.now()-leaderState.updatedAt>LEADER_STALE_MS)suspendAlignment('Leader SYNC READ stale after errors');
+    if(leaderState.teleop && performance.now()-leaderState.updatedAt>LEADER_STALE_MS)stopTeleop('Leader input stale after SYNC READ errors');
+    const nowMs=performance.now();
+    if(e.partialPositions){
+      e.partialPositions.forEach((raw,i)=>{if(Number.isFinite(raw))leaderState.current[i]=raw;});
+      leaderViewer.setPose(leaderState.current.map(v=>Number.isFinite(v)?v:2048),leToUi(leRobotFile.leader));
+    }
+    leaderState.readStats.failed++;leaderState.readFailureCycles++;
+    if(leaderState.readFailureCycles>=3 && leaderState.readFailureCycles===3)
+      logOp('leader','READ_HEALTH','STALE','3 consecutive full-six-axis failures; automatic following cannot use partial as fresh data','warn');
+    if(e.message!==leaderState.lastError||nowMs-(leaderState.lastErrorAt||0)>4000){
+      log('Leader SYNC READ failed: '+e.message,true);
+      leaderState.lastError=e.message;leaderState.lastErrorAt=nowMs;
+    }
+  }
+  finally{leaderState.busy=false;}
+}
+setInterval(pollLeader,60); // one 0x82 SYNC READ request for six motor positions
+setInterval(()=>{if(leaderState.teleop && performance.now()-leaderState.updatedAt>LEADER_STALE_MS)stopTeleop('Leader input stale for more than 750 ms');},100);
+setInterval(autoFollowTick,100); // resume WAIT_LEADER when fresh SYNC READ data arrives
+// Reflect asynchronous changes from follower transport in leader controls.
+const followerRefresh=refresh;
+refresh=function(){followerRefresh();renderLeaderUI();};
+async function loadBothDefaultCal(){
+  try{await Promise.all([fetchInitialCal('leader'),fetchInitialCal('follower')]);}
+  catch(e){log('Startup calibration JSON error: '+e.message,true);}
+  renderLeaderUI();
+}
+setInterval(motionTick,MOTION_PERIOD_MS);
+setInterval(renderLiveDiagnostics,150);
+setInterval(()=>{
+  const readPeriod=state.calMode?CALIBRATION_READ_PERIOD_MS:(state.torque?FOLLOWER_READ_ON_MS:FOLLOWER_READ_OFF_MS);
+  if(performance.now()-state.pollAt>=readPeriod)pollTick();
+},20);
+setInterval(()=>{if(!state.connected)viewer.setPose(state.targets,viewCals());},800);
+window.addEventListener('beforeunload',()=>{ /* No reliable asynchronous shutdown on unload: hardware E-stop required. */ });
+renderCalEditor();renderFollowSpeed();refresh();setInterval(()=>{$('diagnoseGripperBtn').disabled=!state.connected||gripperDiagnosticBusy;},500);loadBothDefaultCal();log('LeRobotWebApp 0.21.0 started in USB-only mode; loading Leader/Follower calibration JSON.');logOp('follower','SERVO_INTERPOLATION',state.useServoInterpolation?'ENABLED':'DISABLED',`STARTUP MODE=${state.useServoInterpolation?'ACC7':'POS2'} MARGIN=${state.servoSpeedMargin.toFixed(2)} GOAL_SPEED_MIN=${SERVO_GOAL_SPEED_MIN}`);logOp('follower','DEBUG_MODE','ENABLED','STARTUP_DEFAULT=ON; software calibration bounds warn; EEPROM and torque-on checks enforced','warn');
+
+</script>
+</body>
+</html>
